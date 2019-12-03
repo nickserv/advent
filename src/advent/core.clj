@@ -9,5 +9,11 @@
   (- (int (/ mass 3))
      2))
 
+(defn additional-fuel [mass]
+  (if (> (fuel mass) 0)
+    (+ (fuel mass) (additional-fuel (fuel mass)))
+    0))
+
 (defn -main [& args]
-  (println (reduce + (map fuel masses))))
+  (println (reduce + (map fuel masses)))
+  (println (reduce + (map additional-fuel masses))))
