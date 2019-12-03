@@ -18,17 +18,16 @@
   (map #(Integer/parseInt %)
        (clojure.string/split (clojure.string/trim (slurp "src/advent/input2.txt")) #",")))
 
+(def operations (hash-map 1 + 2 *))
+
 (defn process-opcodes [opcodes position]
-  (let [opcode (get opcodes position)
-        left (get opcodes (+ 1 position))
-        right (get opcodes (+ 2 position))
+  (let [operation (get operations (get opcodes position))
+        left (get opcodes (get opcodes (+ 1 position)))
+        right (get opcodes (get opcodes (+ 2 position)))
         result (get opcodes (+ 3 position))
         new-position (+ 4 position)]
-    (if (some #{opcode} [1 2])
-      (process-opcodes (assoc opcodes result ((if (= 1 opcode) + *)
-                                              (get opcodes left)
-                                              (get opcodes right)))
-                       new-position)
+    (if operation
+      (process-opcodes (assoc opcodes result (operation left right)) new-position)
       opcodes)))
 
 (defn -main [& args]
