@@ -18,6 +18,8 @@
   (map #(Integer/parseInt %)
        (clojure.string/split (clojure.string/trim (slurp "src/advent/input2.txt")) #",")))
 
+(def restored-opcodes (assoc (assoc (vec opcodes) 1 12) 2 2))
+
 (def operations (hash-map 1 + 2 *))
 
 (defn process-opcodes
@@ -35,4 +37,5 @@
 
 (defn -main [& args]
   (println (reduce + (map fuel masses)))
-  (println (reduce + (map additional-fuel masses))))
+  (println (reduce + (map additional-fuel masses)))
+  (println (first (process-opcodes restored-opcodes))))
