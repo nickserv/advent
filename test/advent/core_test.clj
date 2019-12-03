@@ -3,12 +3,14 @@
             [advent.core :refer :all]))
 
 (deftest fuel-test
-  (is (= 2 (fuel 12)))
-  (is (= 2 (fuel 14)))
-  (is (= 654 (fuel 1969)))
-  (is (= 33583 (fuel 100756))))
+  (are [x y] (= x (fuel y))
+    2 12
+    2 14
+    654 1969
+    33583 100756))
 
 (deftest additional-fuel-test
-  (is (= 2 (additional-fuel 14)))
-  (is (= 966 (additional-fuel 1969)))
-  (is (= 50346 (additional-fuel 100756))))
+  (are [x y] (= x (additional-fuel y))
+    2 14
+    966 1969
+    50346 100756))
