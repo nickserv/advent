@@ -16,7 +16,7 @@
     50346 100756))
 
 (deftest process-opcodes-test
-  (are [x y] (= x (process-opcodes y 0))
+  (are [x y] (= x (process-opcodes y))
     [2 0 0 0 99] [1 0 0 0 99]
     [2 3 0 6 99] [2 3 0 3 99]
     [2 4 4 5 99 9801] [2 4 4 5 99 0]

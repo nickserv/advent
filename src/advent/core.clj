@@ -20,15 +20,18 @@
 
 (def operations (hash-map 1 + 2 *))
 
-(defn process-opcodes [opcodes position]
-  (let [operation (get operations (get opcodes position))
-        left (get opcodes (get opcodes (+ 1 position)))
-        right (get opcodes (get opcodes (+ 2 position)))
-        result (get opcodes (+ 3 position))
-        new-position (+ 4 position)]
-    (if operation
-      (process-opcodes (assoc opcodes result (operation left right)) new-position)
-      opcodes)))
+(defn process-opcodes
+  ([opcodes]
+   (process-opcodes opcodes 0))
+  ([opcodes position]
+   (let [operation (get operations (get opcodes position))
+         left (get opcodes (get opcodes (+ 1 position)))
+         right (get opcodes (get opcodes (+ 2 position)))
+         result (get opcodes (+ 3 position))
+         new-position (+ 4 position)]
+     (if operation
+       (process-opcodes (assoc opcodes result (operation left right)) new-position)
+       opcodes))))
 
 (defn -main [& args]
   (println (reduce + (map fuel masses)))
