@@ -1,9 +1,10 @@
 (ns advent.core
+  (:require [clojure.string :as str])
   (:gen-class))
 
 (def masses
   (map #(Integer/parseInt %)
-       (clojure.string/split-lines (slurp "src/advent/input.txt"))))
+       (str/split-lines (slurp "src/advent/input.txt"))))
 
 (defn fuel [mass]
   (- (int (/ mass 3))
@@ -16,7 +17,7 @@
 
 (def opcodes
   (map #(Integer/parseInt %)
-       (clojure.string/split (clojure.string/trim (slurp "src/advent/input2.txt")) #",")))
+       (str/split (str/trim (slurp "src/advent/input2.txt")) #",")))
 
 (def restored-opcodes (assoc (assoc (vec opcodes) 1 12) 2 2))
 
