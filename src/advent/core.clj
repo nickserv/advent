@@ -19,7 +19,8 @@
   (map #(Integer/parseInt %)
        (str/split (str/trim (slurp "src/advent/input2.txt")) #",")))
 
-(def restored-opcodes (assoc (assoc (vec opcodes) 1 12) 2 2))
+(defn replace-opcodes [opcodes first second]
+  (assoc (assoc opcodes 1 first) 2 second))
 
 (def operations (hash-map 1 + 2 *))
 
@@ -39,4 +40,4 @@
 (defn -main [& args]
   (println (reduce + (map fuel masses)))
   (println (reduce + (map additional-fuel masses)))
-  (println (first (process-opcodes restored-opcodes))))
+  (println (first (process-opcodes (replace-opcodes (vec opcodes) 12 2)))))
