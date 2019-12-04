@@ -32,7 +32,7 @@
          result (get opcodes (+ 3 position))
          new-position (+ 4 position)]
      (if operation
-       (process-opcodes (assoc opcodes result (operation left right)) new-position)
+       (recur (assoc opcodes result (operation left right)) new-position)
        opcodes))))
 
 (defn -main [& args]
