@@ -19,8 +19,8 @@
   (map #(Integer/parseInt %)
        (str/split (str/trim (slurp "src/advent/input2.txt")) #",")))
 
-(defn replace-opcodes [opcodes first second]
-  (assoc (assoc opcodes 1 first) 2 second))
+(defn replace-opcodes [opcodes x y]
+  (assoc (assoc opcodes 1 x) 2 y))
 
 (def operations (hash-map 1 + 2 *))
 
