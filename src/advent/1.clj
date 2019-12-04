@@ -3,7 +3,7 @@
 
 (def masses
   (map #(Integer/parseInt %)
-       (str/split-lines (slurp "src/advent/input.txt"))))
+       (str/split-lines (slurp "src/advent/input1.txt"))))
 
 (defn fuel [mass]
   (- (int (/ mass 3))
