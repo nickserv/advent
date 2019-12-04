@@ -1,9 +1,10 @@
 (ns advent.1
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]))
 
 (def masses
   (map #(Integer/parseInt %)
-       (str/split-lines (slurp "src/advent/input1.txt"))))
+       (str/split-lines (slurp (io/resource "input1.txt")))))
 
 (defn fuel [mass]
   (- (int (/ mass 3))

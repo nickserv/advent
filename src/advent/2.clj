@@ -1,10 +1,11 @@
 (ns advent.2
   (:require [clojure.string :as str]
-            [clojure.math.combinatorics :as combo]))
+            [clojure.math.combinatorics :as combo]
+            [clojure.java.io :as io]))
 
 (def opcodes
   (map #(Integer/parseInt %)
-       (str/split (str/trim (slurp "src/advent/input2.txt")) #",")))
+       (str/split (str/trim (slurp (io/resource "input2.txt"))) #",")))
 
 (defn replace-opcodes [opcodes x y]
   (assoc (assoc opcodes 1 x) 2 y))
