@@ -1,5 +1,6 @@
 (ns advent.core
-  (:require [clojure.string :as str])
+  (:require [clojure.string :as str]
+            [clojure.math.combinatorics :as combo])
   (:gen-class))
 
 (def masses
@@ -37,7 +38,13 @@
        (recur (assoc opcodes result (operation left right)) new-position)
        opcodes))))
 
+(defn find-parameters [opcodes output]
+  (first (filter (fn [[x y]] (= output (first (process-opcodes (replace-opcodes opcodes x y)))))
+                 (combo/selections (range 100) 2))))
+
 (defn -main [& args]
   (println (reduce + (map fuel masses)))
   (println (reduce + (map additional-fuel masses)))
-  (println (first (process-opcodes (replace-opcodes (vec opcodes) 12 2)))))
+  (println (first (process-opcodes (replace-opcodes (vec opcodes) 12 2))))
+  (println (let [[x y] (find-parameters (vec opcodes) 19690720)]
+             (+ (* 100 x) y))))
