@@ -3,8 +3,7 @@
             [clojure.java.io :as io]))
 
 (def masses
-  (map #(Integer/parseInt %)
-       (str/split-lines (slurp (io/resource "1.txt")))))
+  (map read-string (str/split-lines (slurp (io/resource "1.txt")))))
 
 (defn fuel [mass]
   (- (int (/ mass 3))

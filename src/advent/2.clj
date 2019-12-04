@@ -4,8 +4,7 @@
             [clojure.java.io :as io]))
 
 (def opcodes
-  (map #(Integer/parseInt %)
-       (str/split (str/trim (slurp (io/resource "2.txt"))) #",")))
+  (map read-string (str/split (str/trim (slurp (io/resource "2.txt"))) #",")))
 
 (defn replace-opcodes [opcodes x y]
   (assoc (assoc opcodes 1 x) 2 y))
