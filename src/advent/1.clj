@@ -10,7 +10,7 @@
      2))
 
 (defn additional-fuel [mass]
-  (if (> (fuel mass) 0)
+  (if (pos? (fuel mass))
     (+ (fuel mass) (additional-fuel (fuel mass)))
     0))
 
