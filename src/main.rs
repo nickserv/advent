@@ -12,7 +12,7 @@ fn read_numbers() -> io::Result<Vec<u32>> {
         .collect::<Vec<u32>>())
 }
 
-fn find_product(numbers: Vec<u32>) -> Option<u32> {
+fn find_double_product(numbers: &Vec<u32>) -> Option<u32> {
     let mut i = 0;
     while i < numbers.len() {
         let mut j = i;
@@ -29,8 +29,30 @@ fn find_product(numbers: Vec<u32>) -> Option<u32> {
     None
 }
 
+fn find_triple_product(numbers: &Vec<u32>) -> Option<u32> {
+    let mut i = 0;
+    while i < numbers.len() {
+        let mut j = i;
+        while j < numbers.len() {
+            let mut k = j;
+            while k < numbers.len() {
+                let sum = numbers[i] + numbers[j] + numbers[k];
+                if sum == 2020 {
+                    let product = numbers[i] * numbers[j] * numbers[k];
+                    return Some(product);
+                }
+                k += 1;
+            }
+            j += 1;
+        }
+        i += 1;
+    }
+    None
+}
+
 fn main() -> io::Result<()> {
     let numbers = read_numbers()?;
-    println!("{}", find_product(numbers).unwrap());
+    println!("{}", find_double_product(&numbers).unwrap());
+    println!("{}", find_triple_product(&numbers).unwrap());
     Ok(())
 }
