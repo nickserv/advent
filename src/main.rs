@@ -1,8 +1,8 @@
 use std::fs::File;
-use std::io;
 use std::io::prelude::*;
+use std::io::Result;
 
-fn read_numbers() -> io::Result<Vec<u32>> {
+fn read_numbers() -> Result<Vec<u32>> {
     let mut file = File::open("resources/1.txt")?;
     let mut buf = String::new();
     file.read_to_string(&mut buf)?;
@@ -50,7 +50,7 @@ fn find_triple_product(numbers: &Vec<u32>) -> Option<u32> {
     None
 }
 
-fn main() -> io::Result<()> {
+fn main() -> Result<()> {
     let numbers = read_numbers()?;
     println!("{}", find_double_product(&numbers).unwrap());
     println!("{}", find_triple_product(&numbers).unwrap());
