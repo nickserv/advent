@@ -1,14 +1,12 @@
 use std::fs::File;
-use std::io::prelude::*;
-use std::io::Result;
+use std::io::{prelude::*, BufReader, Result};
 
 fn read_numbers() -> Result<Vec<u32>> {
-    let mut file = File::open("resources/1.txt")?;
-    let mut buf = String::new();
-    file.read_to_string(&mut buf)?;
-    Ok(buf
+    let file = File::open("resources/1.txt")?;
+    let reader = BufReader::new(file);
+    Ok(reader
         .lines()
-        .map(|line| line.parse().unwrap())
+        .map(|line| line.unwrap().parse().unwrap())
         .collect::<Vec<u32>>())
 }
 
