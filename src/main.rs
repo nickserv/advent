@@ -12,7 +12,7 @@ fn read_numbers() -> Result<Vec<u32>> {
         .collect::<Vec<u32>>())
 }
 
-fn find_double_product(numbers: &Vec<u32>) -> Option<u32> {
+fn find_double_product(numbers: &[u32]) -> Option<u32> {
     let mut i = 0;
     while i < numbers.len() {
         let mut j = i + 1;
@@ -29,7 +29,7 @@ fn find_double_product(numbers: &Vec<u32>) -> Option<u32> {
     None
 }
 
-fn find_triple_product(numbers: &Vec<u32>) -> Option<u32> {
+fn find_triple_product(numbers: &[u32]) -> Option<u32> {
     let mut i = 0;
     while i < numbers.len() {
         let mut j = i + 1;
