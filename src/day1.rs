@@ -1,16 +1,14 @@
-use std::fs::File;
-use std::io::{prelude::*, BufReader, Result};
+use std::fs::read_to_string;
 
-fn parse_numbers() -> Result<Vec<u32>> {
-    let file = File::open("resources/1.txt")?;
-    let reader = BufReader::new(file);
-    Ok(reader
+fn parse_numbers() -> Vec<u32> {
+    read_to_string("resources/1.txt")
+        .unwrap()
         .lines()
-        .map(|line| line.unwrap().parse().unwrap())
-        .collect::<Vec<u32>>())
+        .flat_map(|line| line.parse())
+        .collect()
 }
 
-fn find_double_product(numbers: &[u32]) -> Option<u32> {
+fn find_double_product(numbers: &[u32]) -> u32 {
     let mut i = 0;
     while i < numbers.len() {
         let mut j = i + 1;
@@ -18,16 +16,16 @@ fn find_double_product(numbers: &[u32]) -> Option<u32> {
             let sum = numbers[i] + numbers[j];
             if sum == 2020 {
                 let product = numbers[i] * numbers[j];
-                return Some(product);
+                return product;
             }
             j += 1;
         }
         i += 1;
     }
-    None
+    panic!("Input does not have a valid match")
 }
 
-fn find_triple_product(numbers: &[u32]) -> Option<u32> {
+fn find_triple_product(numbers: &[u32]) -> u32 {
     let mut i = 0;
     while i < numbers.len() {
         let mut j = i + 1;
@@ -37,7 +35,7 @@ fn find_triple_product(numbers: &[u32]) -> Option<u32> {
                 let sum = numbers[i] + numbers[j] + numbers[k];
                 if sum == 2020 {
                     let product = numbers[i] * numbers[j] * numbers[k];
-                    return Some(product);
+                    return product;
                 }
                 k += 1;
             }
@@ -45,12 +43,11 @@ fn find_triple_product(numbers: &[u32]) -> Option<u32> {
         }
         i += 1;
     }
-    None
+    panic!("Input does not have a valid match")
 }
 
-pub fn main() -> Result<()> {
-    let numbers = parse_numbers()?;
-    println!("{}", find_double_product(&numbers).unwrap());
-    println!("{}", find_triple_product(&numbers).unwrap());
-    Ok(())
+pub fn main() {
+    let numbers = parse_numbers();
+    println!("{}", find_double_product(&numbers));
+    println!("{}", find_triple_product(&numbers));
 }
