@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{prelude::*, BufReader, Result};
 
-fn read_numbers() -> Result<Vec<u32>> {
+fn parse_numbers() -> Result<Vec<u32>> {
     let file = File::open("resources/1.txt")?;
     let reader = BufReader::new(file);
     Ok(reader
@@ -49,7 +49,7 @@ fn find_triple_product(numbers: &[u32]) -> Option<u32> {
 }
 
 pub fn main() -> Result<()> {
-    let numbers = read_numbers()?;
+    let numbers = parse_numbers()?;
     println!("{}", find_double_product(&numbers).unwrap());
     println!("{}", find_triple_product(&numbers).unwrap());
     Ok(())
