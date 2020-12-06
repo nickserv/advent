@@ -1,3 +1,4 @@
+use itertools::Itertools;
 use std::fs::read_to_string;
 
 fn parse_passes() -> Vec<String> {
@@ -29,12 +30,17 @@ fn highest_seat_id(passes: &[String]) -> u16 {
         .iter()
         .map(String::as_str)
         .map(seat_id)
-        .fold(0, core::cmp::max)
+        .max()
+        .unwrap()
 }
 
 fn missing_seat_id(passes: &[String]) -> u16 {
-    let mut seat_ids: Vec<u16> = passes.iter().map(String::as_str).map(seat_id).collect();
-    seat_ids.sort_unstable();
+    let seat_ids: Vec<u16> = passes
+        .iter()
+        .map(String::as_str)
+        .map(seat_id)
+        .sorted()
+        .collect();
     let (_, index_after_missing) = seat_ids
         .iter()
         .enumerate()
