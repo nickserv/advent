@@ -3,20 +3,6 @@ use std::{
     fs::read_to_string,
 };
 
-fn parse_lines() -> Vec<(String, i32)> {
-    read_to_string("resources/2.txt")
-        .unwrap()
-        .lines()
-        .map(|line| {
-            let mut split = line.split(' ');
-            (
-                split.next().unwrap().to_string(),
-                split.next().unwrap().parse().unwrap(),
-            )
-        })
-        .collect()
-}
-
 struct PositionAndDepth {
     position: i32,
     depth: i32,
@@ -72,7 +58,18 @@ fn part_2(lines: &[(String, i32)]) -> PositionAndDepth {
 }
 
 pub fn main() {
-    let lines = parse_lines();
+    let lines: Vec<(String, i32)> = read_to_string("resources/2.txt")
+        .unwrap()
+        .lines()
+        .map(|line| {
+            let mut split = line.split(' ');
+            (
+                split.next().unwrap().to_string(),
+                split.next().unwrap().parse().unwrap(),
+            )
+        })
+        .collect();
+
     println!("{}", part_1(&lines));
     println!("{}", part_2(&lines));
 }
