@@ -41,8 +41,14 @@ fn triangle(n: i32) -> i32 {
 
 fn distance_2(positions: &[i32]) -> i32 {
     let list_average = average(positions.to_vec());
-    let distances = positions.iter().map(|n| triangle((n - list_average).abs()));
-    distances.sum()
+    [list_average - 1, list_average, list_average + 1]
+        .iter()
+        .map(|position| {
+            let distances = positions.iter().map(|n| triangle((n - position).abs()));
+            distances.sum()
+        })
+        .min()
+        .unwrap()
 }
 
 #[test]
