@@ -14,15 +14,40 @@ fn test_median() {
     assert_eq!(median(TEST_POSITIONS.to_vec()), 2);
 }
 
-fn distance(positions: &[i32]) -> i32 {
+fn average(list: Vec<i32>) -> i32 {
+    let result = list.iter().map(|n| *n as f64).sum::<f64>() / list.len() as f64;
+    result.round() as i32
+}
+
+#[test]
+fn test_average() {
+    assert_eq!(average(TEST_POSITIONS.to_vec()), 5);
+}
+
+fn distance_1(positions: &[i32]) -> i32 {
     let list_median = median(positions.to_vec());
     let distances = positions.iter().map(|n| (n - list_median).abs());
     distances.sum()
 }
 
 #[test]
-fn test_distance() {
-    assert_eq!(distance(TEST_POSITIONS), 37);
+fn test_distance_1() {
+    assert_eq!(distance_1(TEST_POSITIONS), 37);
+}
+
+fn triangle(n: i32) -> i32 {
+    (i32::pow(n, 2) + n) / 2
+}
+
+fn distance_2(positions: &[i32]) -> i32 {
+    let list_average = average(positions.to_vec());
+    let distances = positions.iter().map(|n| triangle((n - list_average).abs()));
+    distances.sum()
+}
+
+#[test]
+fn test_distance_2() {
+    assert_eq!(distance_2(TEST_POSITIONS), 168);
 }
 
 pub fn main() {
@@ -33,5 +58,6 @@ pub fn main() {
         .map(|position| position.parse().unwrap())
         .collect();
 
-    println!("{}", distance(&positions));
+    println!("{}", distance_1(&positions));
+    println!("{}", distance_2(&positions));
 }
