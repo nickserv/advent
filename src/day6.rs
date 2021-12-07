@@ -16,7 +16,7 @@ pub fn main() {
         .unwrap()
         .trim()
         .split(',')
-        .flat_map(|fish| fish.parse())
+        .map(|fish| fish.parse().unwrap())
         .collect();
 
     let mut fish_counts = [0; 9];

@@ -22,7 +22,7 @@ pub fn main() {
     let numbers: Vec<u32> = read_to_string("resources/1.txt")
         .unwrap()
         .lines()
-        .flat_map(|line| line.parse())
+        .map(|line| line.parse().unwrap())
         .collect();
 
     println!("{}", count_comparisons_1(&numbers));
