@@ -36,7 +36,7 @@ fn test_distance_1() {
 }
 
 fn triangle(n: i32) -> i32 {
-    (i32::pow(n, 2) + n) / 2
+    (n.pow(2) + n) / 2
 }
 
 fn distance_2(positions: &[i32]) -> i32 {
