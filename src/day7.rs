@@ -14,9 +14,9 @@ fn test_median() {
     assert_eq!(median(TEST_POSITIONS.to_vec()), 2);
 }
 
-fn distance(list: &[i32]) -> i32 {
-    let list_median = median(list.to_vec());
-    let distances = list.iter().map(|n| (n - list_median).abs());
+fn distance(positions: &[i32]) -> i32 {
+    let list_median = median(positions.to_vec());
+    let distances = positions.iter().map(|n| (n - list_median).abs());
     distances.sum()
 }
 
@@ -30,7 +30,7 @@ pub fn main() {
         .unwrap()
         .trim()
         .split(',')
-        .map(|fish| fish.parse().unwrap())
+        .map(|position| position.parse().unwrap())
         .collect();
 
     println!("{}", distance(&positions));
