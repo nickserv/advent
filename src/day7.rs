@@ -1,5 +1,8 @@
 use std::fs::read_to_string;
 
+#[cfg(test)]
+const TEST_POSITIONS: &[i32] = &[16, 1, 2, 0, 4, 2, 7, 1, 2, 14];
+
 fn median(list: Vec<i32>) -> i32 {
     let mut sorted_list = list.clone();
     sorted_list.sort_unstable();
@@ -8,7 +11,7 @@ fn median(list: Vec<i32>) -> i32 {
 
 #[test]
 fn test_median() {
-    assert_eq!(median(vec![16, 1, 2, 0, 4, 2, 7, 1, 2, 14]), 2);
+    assert_eq!(median(TEST_POSITIONS.to_vec()), 2);
 }
 
 fn distance(list: &[i32]) -> i32 {
@@ -19,7 +22,7 @@ fn distance(list: &[i32]) -> i32 {
 
 #[test]
 fn test_distance() {
-    assert_eq!(distance(&[16, 1, 2, 0, 4, 2, 7, 1, 2, 14]), 37);
+    assert_eq!(distance(TEST_POSITIONS), 37);
 }
 
 pub fn main() {
