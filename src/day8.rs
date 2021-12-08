@@ -150,30 +150,33 @@ lazy_static! {
             Segment::LowerRight,
         ]),
     ];
+    static ref CONFIGURATIONS: Vec<HashMap<char, Segment>> = Segment::VALUES
+        .iter()
+        .permutations(7)
+        .map(|permutation| {
+            ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+                .iter()
+                .zip(permutation)
+                .map(|(char, segment)| (*char, *segment))
+                .collect::<HashMap<char, Segment>>()
+        })
+        .collect();
 }
 
-fn find_configuration(entries: &[Entry]) -> HashMap<char, Segment> {
-    let mut configurations = Segment::VALUES.iter().permutations(7).map(|permutation| {
-        ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-            .iter()
-            .zip(permutation)
-            .map(|(char, segment)| (*char, *segment))
-            .collect::<HashMap<char, Segment>>()
-    });
-
-    configurations
+fn find_configuration(entry: &Entry) -> HashMap<char, Segment> {
+    CONFIGURATIONS
+        .iter()
         .find(|configuration| {
-            entries.iter().all(|entry| {
-                entry.patterns.iter().all(|pattern| {
-                    let mut set = HashSet::new();
-                    for char in pattern.chars() {
-                        set.insert(configuration[&char]);
-                    }
-                    DIGIT_SEGMENTS.contains(&set)
-                })
+            entry.patterns.iter().all(|pattern| {
+                let mut set = HashSet::new();
+                for char in pattern.chars() {
+                    set.insert(configuration[&char]);
+                }
+                DIGIT_SEGMENTS.contains(&set)
             })
         })
         .unwrap()
+        .clone()
 }
 
 #[test]
@@ -184,7 +187,7 @@ fn test_find_configuration() {
             .unwrap();
 
     assert_eq!(
-        find_configuration(&[entry]),
+        find_configuration(&entry),
         HashMap::from([
             ('a', Segment::UpperRight),
             ('b', Segment::LowerRight),
@@ -198,11 +201,11 @@ fn test_find_configuration() {
 }
 
 fn sum_output(entries: &[Entry]) -> usize {
-    let configuration = find_configuration(entries);
-
     entries
         .iter()
         .map(|entry| {
+            let configuration = find_configuration(entry);
+
             entry
                 .output
                 .iter()
