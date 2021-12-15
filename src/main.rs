@@ -4,6 +4,7 @@ extern crate lazy_static;
 mod day1;
 mod day10;
 mod day14;
+mod day15;
 mod day2;
 mod day3;
 mod day4;
@@ -25,4 +26,5 @@ fn main() {
     day9::main();
     day10::main();
     day14::main();
+    day15::main();
 }
