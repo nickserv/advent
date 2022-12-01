@@ -1,27 +1,14 @@
 import { readFile } from "fs/promises"
 
-async function parseCalories(): Promise<number[][]> {
-  return (await readFile("resources/1.txt", "utf8")).split("\n\n").map((str) =>
-    str
-      .trim()
-      .split("\n")
-      .map((str) => {
-        if (isNaN(parseInt(str))) throw new Error(`Invalid number: ${str}`)
-        else return parseInt(str)
-      }),
-  )
+function sum(numbers: number[]) {
+  return numbers.reduce((a, b) => a + b)
 }
 
-console.log(
-  Math.max(
-    ...(await parseCalories()).map((elf) => elf.reduce((a, b) => a + b)),
-  ),
-)
+const calories = (await readFile("resources/1.txt", "utf8"))
+  .trim()
+  .split("\n\n")
+  .map((section) => section.split("\n").map((line) => parseInt(line)))
+const totalCalories = calories.map(sum)
 
-console.log(
-  (await parseCalories())
-    .map((elf) => elf.reduce((a, b) => a + b))
-    .sort((a, b) => b - a)
-    .slice(0, 3)
-    .reduce((a, b) => a + b),
-)
+console.log(Math.max(...totalCalories))
+console.log(sum(totalCalories.sort((a, b) => b - a).slice(0, 3)))
