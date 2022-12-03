@@ -1,6 +1,6 @@
 import assert from "assert"
 import { readFile } from "fs/promises"
-import { sum } from "./util.js"
+import { input, sum } from "./util.js"
 
 enum Shape {
   Rock,
@@ -91,8 +91,7 @@ assert.strictEqual(score2(Shape.Scissors, Result.Win), 7)
 
 console.log(
   sum(
-    (await readFile("resources/2.txt", "utf8"))
-      .trim()
+    (await input(2))
       .split("\n")
       .map(([otherShape, , result]) =>
         score2(shapes.get(otherShape)!, results.get(result)!),

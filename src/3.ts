@@ -1,6 +1,5 @@
 import assert from "assert"
-import { readFile } from "fs/promises"
-import { sum } from "./util.js"
+import { input, sum } from "./util.js"
 
 function parseSplitRucksack(string: string): [Set<string>, Set<string>] {
   const pivot = string.length / 2
@@ -57,7 +56,7 @@ assert.strictEqual(
   157,
 )
 
-const lines = (await readFile("resources/3.txt", "utf8")).trim().split("\n")
+const lines = (await input(3)).split("\n")
 
 console.log(
   sum(

@@ -1,11 +1,10 @@
-import { readFile } from "fs/promises"
+import { input } from "./util.js"
 
 function sum(numbers: number[]) {
   return numbers.reduce((a, b) => a + b)
 }
 
-const calories = (await readFile("resources/1.txt", "utf8"))
-  .trim()
+const calories = (await input(1))
   .split("\n\n")
   .map((section) => section.split("\n").map((line) => parseInt(line)))
 const totalCalories = calories.map(sum)
