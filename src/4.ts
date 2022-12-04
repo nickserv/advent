@@ -23,11 +23,11 @@ function count<T>(array: T[], predicate: (value: T) => boolean) {
   return array.filter(predicate).length
 }
 
-function rangeContains(range1: Range, range2: Range): boolean {
+function rangeContains(range1: Range, range2: Range) {
   return range1.start <= range2.start && range1.end >= range2.end
 }
 
-function containedRanges(ranges: [Range, Range][]): number {
+function containedRanges(ranges: [Range, Range][]) {
   return count(
     ranges,
     ([range1, range2]) =>
@@ -50,11 +50,11 @@ assert.strictEqual(containedRanges(testRangePairs), 2)
 const rangePairs = parseInput(await input(4))
 console.log(containedRanges(rangePairs))
 
-function rangeOverlaps(range1: Range, range2: Range): boolean {
+function rangeOverlaps(range1: Range, range2: Range) {
   return range1.start <= range2.end && range1.end >= range2.start
 }
 
-function overlappingRanges(ranges: [Range, Range][]): number {
+function overlappingRanges(ranges: [Range, Range][]) {
   return count(ranges, ([range1, range2]) => rangeOverlaps(range1, range2))
 }
 
