@@ -1,7 +1,7 @@
 import assert from "assert"
 import { input } from "./util.js"
 
-function parseStacks(input: string): string[] {
+function parseStacks(input: string) {
   const lines: string[] = input.split("\n").slice(0, -1)
   return Array.from({ length: (lines[0].length - 3) / 4 + 1 }, (_, index) =>
     lines
@@ -77,7 +77,7 @@ function doMoves(stack: string[], moves: Move[], multiple = false) {
 assert.deepStrictEqual(doMoves(testStacks, testMoves), ["C", "M", "PDNZ"])
 assert.deepStrictEqual(doMoves(testStacks, testMoves, true), ["M", "C", "PZND"])
 
-function message(stacks: string[]): string {
+function message(stacks: string[]) {
   return stacks.map((stack) => stack.slice(-1)).join("")
 }
 
