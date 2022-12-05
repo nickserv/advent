@@ -9,7 +9,7 @@ class Range {
     return new Range(start, end)
   }
 
-  contains(other: Range): boolean {
+  contains(other: Range) {
     return this.start <= other.start && this.end >= other.end
   }
 
@@ -20,8 +20,8 @@ class Range {
 
 function parseInput(input: string) {
   return input.split("\n").map((line): [Range, Range] => {
-    const [first, second] = line.split(",")
-    return [Range.parse(first), Range.parse(second)]
+    const [first, second] = line.split(",").map(Range.parse)
+    return [first, second]
   })
 }
 
