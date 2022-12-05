@@ -6,8 +6,8 @@ interface Range {
   end: number
 }
 
-function parseInput(input: string): [Range, Range][] {
-  return input.split("\n").map((line) => {
+function parseInput(input: string) {
+  return input.split("\n").map((line): [Range, Range] => {
     const numbers = /(\d+)-(\d+),(\d+)-(\d+)/
       .exec(line)!
       .slice(1)

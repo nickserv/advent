@@ -1,7 +1,7 @@
 import assert from "assert"
 import { input, sum } from "./util.js"
 
-function parseSplitRucksack(line: string): [Set<string>, Set<string>] {
+function parseSplitRucksack(line: string) {
   const pivot = line.length / 2
   return [new Set(line.slice(0, pivot)), new Set(line.slice(pivot))]
 }
