@@ -18,9 +18,9 @@ interface Move {
   end: number
 }
 
-function parseMove(input: string): Move {
+function parseMove(line: string): Move {
   const [, quantity, start, end] = /move (\d+) from (\d+) to (\d+)/
-    .exec(input)!
+    .exec(line)!
     .map((number) => parseInt(number))
   return { quantity, start, end }
 }
@@ -70,8 +70,8 @@ function doMove(
   } else return stacks
 }
 
-function doMoves(stack: string[], moves: Move[], multiple = false) {
-  return moves.reduce((stacks, move) => doMove(stacks, move, multiple), stack)
+function doMoves(stacks: string[], moves: Move[], multiple = false) {
+  return moves.reduce((stacks, move) => doMove(stacks, move, multiple), stacks)
 }
 
 assert.deepStrictEqual(doMoves(testStacks, testMoves), ["C", "M", "PDNZ"])

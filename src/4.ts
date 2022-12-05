@@ -13,10 +13,10 @@ class Range {
   }
 }
 
-function parseInput(input: string): [Range, Range][] {
-  return input.split("\n").map((string) => {
+function parseInput(input: string) {
+  return input.split("\n").map((line): [Range, Range] => {
     const numbers = /(\d+)-(\d+),(\d+)-(\d+)/
-      .exec(string)!
+      .exec(line)!
       .slice(1)
       .map((d) => parseInt(d))
     return [
