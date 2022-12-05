@@ -1,8 +1,8 @@
 import assert from "assert"
 import { input } from "./util.js"
 
-function parseStacks(input: string): readonly string[] {
-  const lines: readonly string[] = input.split("\n").slice(0, -1)
+function parseStacks(input: string): string[] {
+  const lines: string[] = input.split("\n").slice(0, -1)
   return Array.from({ length: (lines[0].length - 3) / 4 + 1 }, (_, index) =>
     lines
       .map((line) => line[index * 4 + 1])
@@ -13,9 +13,9 @@ function parseStacks(input: string): readonly string[] {
 }
 
 interface Move {
-  readonly quantity: number
-  readonly start: number
-  readonly end: number
+  quantity: number
+  start: number
+  end: number
 }
 
 function parseMove(input: string): Move {
@@ -25,7 +25,7 @@ function parseMove(input: string): Move {
   return { quantity, start, end }
 }
 
-function parseInput(input: string): [readonly string[], readonly Move[]] {
+function parseInput(input: string): [string[], Move[]] {
   const [stacksInput, movesInput] = input.split("\n\n")
   return [parseStacks(stacksInput), movesInput.split("\n").map(parseMove)]
 }
@@ -48,10 +48,10 @@ assert.deepStrictEqual(testMoves, [
 ])
 
 function doMove(
-  stacks: readonly string[],
+  stacks: string[],
   { quantity, start, end }: Move,
   multiple = false,
-): readonly string[] {
+): string[] {
   if (quantity) {
     const pivot = -(multiple ? quantity : 1)
     const movedStacks = stacks.map((stack, index) => {
@@ -70,18 +70,14 @@ function doMove(
   } else return stacks
 }
 
-function doMoves(
-  stack: readonly string[],
-  moves: readonly Move[],
-  multiple = false,
-) {
+function doMoves(stack: string[], moves: Move[], multiple = false) {
   return moves.reduce((stacks, move) => doMove(stacks, move, multiple), stack)
 }
 
 assert.deepStrictEqual(doMoves(testStacks, testMoves), ["C", "M", "PDNZ"])
 assert.deepStrictEqual(doMoves(testStacks, testMoves, true), ["M", "C", "PZND"])
 
-function message(stacks: readonly string[]): string {
+function message(stacks: string[]): string {
   return stacks.map((stack) => stack.slice(-1)).join("")
 }
 
