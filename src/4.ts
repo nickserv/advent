@@ -4,6 +4,11 @@ import { input } from "./util.js"
 class Range {
   constructor(public start: number, public end: number) {}
 
+  static parse(input: string) {
+    const [start, end] = input.split("-").map((d) => parseInt(d))
+    return new Range(start, end)
+  }
+
   contains(other: Range): boolean {
     return this.start <= other.start && this.end >= other.end
   }
@@ -15,14 +20,8 @@ class Range {
 
 function parseInput(input: string) {
   return input.split("\n").map((line): [Range, Range] => {
-    const numbers = /(\d+)-(\d+),(\d+)-(\d+)/
-      .exec(line)!
-      .slice(1)
-      .map((d) => parseInt(d))
-    return [
-      new Range(numbers[0], numbers[1]),
-      new Range(numbers[2], numbers[3]),
-    ]
+    const [first, second] = line.split(",")
+    return [Range.parse(first), Range.parse(second)]
   })
 }
 
