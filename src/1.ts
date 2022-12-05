@@ -1,8 +1,4 @@
-import { input } from "./util.js"
-
-function sum(numbers: number[]) {
-  return numbers.reduce((a, b) => a + b)
-}
+import { input, sum } from "./util.js"
 
 const calories = (await input(1))
   .split("\n\n")
