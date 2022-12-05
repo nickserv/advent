@@ -7,9 +7,9 @@ interface Range {
 }
 
 function parseInput(input: string): [Range, Range][] {
-  return input.split("\n").map((string) => {
+  return input.split("\n").map((line) => {
     const numbers = /(\d+)-(\d+),(\d+)-(\d+)/
-      .exec(string)!
+      .exec(line)!
       .slice(1)
       .map((d) => parseInt(d))
     return [

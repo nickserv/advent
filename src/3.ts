@@ -1,9 +1,9 @@
 import assert from "assert"
 import { input, sum } from "./util.js"
 
-function parseSplitRucksack(string: string): [Set<string>, Set<string>] {
-  const pivot = string.length / 2
-  return [new Set(string.slice(0, pivot)), new Set(string.slice(pivot))]
+function parseSplitRucksack(line: string): [Set<string>, Set<string>] {
+  const pivot = line.length / 2
+  return [new Set(line.slice(0, pivot)), new Set(line.slice(pivot))]
 }
 
 function rucksackIntersection(rucksacks: Set<string>[]) {
@@ -32,10 +32,10 @@ assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[3])), "v")
 assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[4])), "t")
 assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[5])), "s")
 
-function priority(string: string) {
+function priority(char: string) {
   return (
-    string.charCodeAt(0) +
-    (string === string.toUpperCase()
+    char.charCodeAt(0) +
+    (char === char.toUpperCase()
       ? 27 - "A".charCodeAt(0)
       : 1 - "a".charCodeAt(0))
   )
