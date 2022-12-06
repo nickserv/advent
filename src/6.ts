@@ -2,13 +2,9 @@ import assert from "assert"
 import { input } from "./util.js"
 
 function findMarker(input: string, length: number) {
-  return Array.from(
-    { length: input.length },
-    (_, index) => index + length,
-  ).find(
-    (index) =>
-      new Set(input.slice(index - length, index).split("")).size === length,
-  )
+  return [...input]
+    .map((_, index) => index + length)
+    .find((end, start) => new Set([...input.slice(start, end)]).size === length)
 }
 
 const testInputs = [
