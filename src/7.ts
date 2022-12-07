@@ -2,13 +2,13 @@ import assert from "assert"
 import { input, sum } from "./util.js"
 
 class File {
-  constructor(public name: string, public size: number) {}
+  constructor(private name: string, public size: number) {}
 }
 
 class Dir {
   contents: Set<File | Dir>
 
-  constructor(public name: string, ...contents: (File | Dir)[]) {
+  constructor(private name: string, ...contents: (File | Dir)[]) {
     this.contents = new Set(contents)
   }
 
