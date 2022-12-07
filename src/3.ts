@@ -8,12 +8,10 @@ function parseSplitRucksack(line: string) {
 
 function rucksackIntersection(rucksacks: Set<string>[]) {
   return [
-    ...rucksacks
-      .reduce(
-        (intersection, rucksack) =>
-          new Set([...intersection].filter((char) => rucksack.has(char))),
-      )
-      .values(),
+    ...rucksacks.reduce(
+      (intersection, rucksack) =>
+        new Set([...intersection].filter((char) => rucksack.has(char))),
+    ),
   ][0]
 }
 
