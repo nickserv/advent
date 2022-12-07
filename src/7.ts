@@ -6,22 +6,22 @@ class File {
 }
 
 class Dir {
-  contents: (File | Dir)[]
+  contents: Set<File | Dir>
 
   constructor(public name: string, ...contents: (File | Dir)[]) {
-    this.contents = contents
+    this.contents = new Set(contents)
   }
 
   size(): number {
     return sum(
-      this.contents.map((value) =>
+      [...this.contents].map((value) =>
         value instanceof Dir ? value.size() : value.size,
       ),
     )
   }
 }
 
-type Command = string | (File | Dir)[]
+type Command = string | Set<File | Dir>
 
 function parseCommands(input: string) {
   return [
@@ -31,11 +31,12 @@ function parseCommands(input: string) {
       case "cd":
         return path
       case "ls":
-        return [...output.matchAll(/(dir|\d+) (.+)/g)].map(
-          ([, dirOrSize, name]) =>
+        return new Set(
+          [...output.matchAll(/(dir|\d+) (.+)/g)].map(([, dirOrSize, name]) =>
             dirOrSize === "dir"
               ? new Dir(name)
               : new File(name, parseInt(dirOrSize)),
+          ),
         )
       default:
         throw new Error(`Unknown command ${name}`)
@@ -68,30 +69,30 @@ $ ls
 7214296 k`
 assert.deepStrictEqual(parseCommands(testOutput), [
   "/",
-  [
+  new Set([
     new Dir("a"),
     new File("b.txt", 14848514),
     new File("c.dat", 8504156),
     new Dir("d"),
-  ],
+  ]),
   "a",
-  [
+  new Set([
     new Dir("e"),
     new File("f", 29116),
     new File("g", 2557),
     new File("h.lst", 62596),
-  ],
+  ]),
   "e",
-  [new File("i", 584)],
+  new Set([new File("i", 584)]),
   "..",
   "..",
   "d",
-  [
+  new Set([
     new File("j", 4060174),
     new File("d.log", 8033020),
     new File("d.ext", 5626152),
     new File("k", 7214296),
-  ],
+  ]),
 ] satisfies Command[])
 
 function tree(commands: Command[]) {
@@ -101,42 +102,46 @@ function tree(commands: Command[]) {
       if (command === "..") stack.pop()
       else {
         const dir = new Dir(command)
-        stack.at(-1)?.contents.push(dir)
+        stack.at(-1)?.contents.add(dir)
         stack.push(dir)
       }
     } else {
-      stack.at(-1)!.contents = command.filter((value) => value instanceof File)
+      stack.at(-1)!.contents = new Set(
+        [...command].filter((value) => value instanceof File),
+      )
     }
   }
   return stack[0]
 }
 
-// assert.deepStrictEqual(
-//   tree(parseCommands(testOutput)),
-//   new Dir(
-//     "/",
-//     new Dir(
-//       "a",
-//       new Dir("e", new File("i", 584)),
-//       new File("f", 29116),
-//       new File("g", 2557),
-//       new File("h.lst", 62596),
-//     ),
-//     new File("b.txt", 14848514),
-//     new File("c.dat", 8504156),
-//     new Dir(
-//       "d",
-//       new File("j", 4060174),
-//       new File("d.log", 8033020),
-//       new File("d.ext", 5626152),
-//       new File("k", 7214296),
-//     ),
-//   ),
-// )
+assert.deepStrictEqual(
+  tree(parseCommands(testOutput)),
+  new Dir(
+    "/",
+    new Dir(
+      "a",
+      new Dir("e", new File("i", 584)),
+      new File("f", 29116),
+      new File("g", 2557),
+      new File("h.lst", 62596),
+    ),
+    new File("b.txt", 14848514),
+    new File("c.dat", 8504156),
+    new Dir(
+      "d",
+      new File("j", 4060174),
+      new File("d.log", 8033020),
+      new File("d.ext", 5626152),
+      new File("k", 7214296),
+    ),
+  ),
+)
 
-function dirs(dir: Dir): Dir[] {
-  return dir.contents.flatMap((value) =>
-    value instanceof Dir ? dirs(value).concat(value) : [],
+function dirs(dir: Dir): Set<Dir> {
+  return new Set(
+    [...dir.contents].flatMap((value) =>
+      value instanceof Dir ? [...dirs(value), value] : [],
+    ),
   )
 }
 
@@ -144,9 +149,7 @@ function sumDirs(dir: Dir) {
   const limit = 100_000
 
   return sum(
-    dirs(dir)
-      .map((dir) => dir.size())
-      .filter((size) => size <= limit),
+    [...dirs(dir)].map((dir) => dir.size()).filter((size) => size <= limit),
   )
 }
 
@@ -160,9 +163,7 @@ function bestDirSize(dir: Dir) {
   const needed = dir.size() + required - total
 
   return Math.min(
-    ...dirs(dir)
-      .map((dir) => dir.size())
-      .filter((size) => size >= needed),
+    ...[...dirs(dir)].map((dir) => dir.size()).filter((size) => size >= needed),
   )
 }
 
