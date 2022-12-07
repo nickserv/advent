@@ -6,18 +6,16 @@ class File {
 }
 
 class Dir {
-  contents: Set<File | Dir>
-
-  constructor(private name: string, ...contents: (File | Dir)[]) {
-    this.contents = new Set(contents)
-  }
+  constructor(private name: string, public contents?: Set<File | Dir>) {}
 
   size(): number {
-    return sum(
-      [...this.contents].map((value) =>
-        value instanceof Dir ? value.size() : value.size,
-      ),
-    )
+    if (this.contents)
+      return sum(
+        [...this.contents].map((value) =>
+          value instanceof Dir ? value.size() : value.size,
+        ),
+      )
+    else return 0
   }
 }
 
@@ -102,7 +100,7 @@ function tree(commands: Command[]) {
       if (command === "..") stack.pop()
       else {
         const dir = new Dir(command)
-        stack.at(-1)?.contents.add(dir)
+        stack.at(-1)?.contents!.add(dir)
         stack.push(dir)
       }
     } else {
@@ -118,28 +116,34 @@ assert.deepStrictEqual(
   tree(parseCommands(testOutput)),
   new Dir(
     "/",
-    new Dir(
-      "a",
-      new Dir("e", new File("i", 584)),
-      new File("f", 29116),
-      new File("g", 2557),
-      new File("h.lst", 62596),
-    ),
-    new File("b.txt", 14848514),
-    new File("c.dat", 8504156),
-    new Dir(
-      "d",
-      new File("j", 4060174),
-      new File("d.log", 8033020),
-      new File("d.ext", 5626152),
-      new File("k", 7214296),
-    ),
+    new Set([
+      new Dir(
+        "a",
+        new Set([
+          new Dir("e", new Set([new File("i", 584)])),
+          new File("f", 29116),
+          new File("g", 2557),
+          new File("h.lst", 62596),
+        ]),
+      ),
+      new File("b.txt", 14848514),
+      new File("c.dat", 8504156),
+      new Dir(
+        "d",
+        new Set([
+          new File("j", 4060174),
+          new File("d.log", 8033020),
+          new File("d.ext", 5626152),
+          new File("k", 7214296),
+        ]),
+      ),
+    ]),
   ),
 )
 
 function dirs(dir: Dir): Set<Dir> {
   return new Set(
-    [...dir.contents].flatMap((value) =>
+    [...dir.contents!].flatMap((value) =>
       value instanceof Dir ? [...dirs(value), value] : [],
     ),
   )
