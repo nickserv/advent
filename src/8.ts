@@ -28,7 +28,7 @@ const directions = [
 class Position {
   constructor(public row: number, public col: number) {}
 
-  adjust(direction: Direction): Position {
+  adjust(direction: Direction) {
     switch (direction) {
       case Direction.Up:
         return new Position(this.row - 1, this.col)
@@ -47,11 +47,7 @@ function findTreesInDirection(
   position: Position,
   direction: Direction,
 ) {
-  function inner(
-    forest: Forest,
-    position: Position,
-    direction: Direction,
-  ): number[] {
+  function inner(position: Position): number[] {
     const { row, col } = position
     if (
       row >= 0 &&
@@ -59,16 +55,13 @@ function findTreesInDirection(
       col >= 0 &&
       col < forest[row].length
     ) {
-      return [
-        forest[row][col],
-        ...inner(forest, position.adjust(direction), direction),
-      ]
+      return [forest[row][col], ...inner(position.adjust(direction))]
     } else {
       return []
     }
   }
 
-  return inner(forest, position, direction).slice(1)
+  return inner(position).slice(1)
 }
 
 const testForest = Forest.parse(`30373
