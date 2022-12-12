@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input } from "./util.js"
 
 interface Range {
@@ -43,7 +43,7 @@ const testRangePairs = parseInput(
 6-6,4-6
 2-6,4-8`,
 )
-assert.strictEqual(containedRanges(testRangePairs), 2)
+assert.equal(containedRanges(testRangePairs), 2)
 
 const rangePairs = parseInput(await input(4))
 console.log(containedRanges(rangePairs))
@@ -56,6 +56,6 @@ function overlappingRanges(ranges: [Range, Range][]) {
   return count(ranges, ([range1, range2]) => rangeOverlaps(range1, range2))
 }
 
-assert.strictEqual(overlappingRanges(testRangePairs), 4)
+assert.equal(overlappingRanges(testRangePairs), 4)
 
 console.log(overlappingRanges(rangePairs))

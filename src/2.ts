@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { readFile } from "fs/promises"
 import { input, sum } from "./util.js"
 
@@ -38,9 +38,9 @@ function score1(otherShape: Shape, myShape: Shape) {
   }
 }
 
-assert.strictEqual(score1(Shape.Rock, Shape.Paper), 8)
-assert.strictEqual(score1(Shape.Paper, Shape.Rock), 1)
-assert.strictEqual(score1(Shape.Scissors, Shape.Scissors), 6)
+assert.equal(score1(Shape.Rock, Shape.Paper), 8)
+assert.equal(score1(Shape.Paper, Shape.Rock), 1)
+assert.equal(score1(Shape.Scissors, Shape.Scissors), 6)
 
 console.log(
   sum(
@@ -85,9 +85,9 @@ function score2(otherShape: Shape, result: Result) {
   }
 }
 
-assert.strictEqual(score2(Shape.Rock, Result.Draw), 4)
-assert.strictEqual(score2(Shape.Paper, Result.Lose), 1)
-assert.strictEqual(score2(Shape.Scissors, Result.Win), 7)
+assert.equal(score2(Shape.Rock, Result.Draw), 4)
+assert.equal(score2(Shape.Paper, Result.Lose), 1)
+assert.equal(score2(Shape.Scissors, Result.Win), 7)
 
 console.log(
   sum(

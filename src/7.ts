@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input, sum } from "./util.js"
 
 type Command = string | Set<Entry>
@@ -114,7 +114,7 @@ $ ls
 8033020 d.log
 5626152 d.ext
 7214296 k`
-assert.deepStrictEqual(Command.parse(testOutput), [
+assert.deepEqual(Command.parse(testOutput), [
   "/",
   new Set([
     new Dir("a"),
@@ -141,7 +141,7 @@ assert.deepStrictEqual(Command.parse(testOutput), [
     new File("k", 7214296),
   ]),
 ] satisfies Command[])
-assert.deepStrictEqual(
+assert.deepEqual(
   Dir.fromCommands(testOutput),
   new Dir(
     "/",
@@ -169,8 +169,8 @@ assert.deepStrictEqual(
     ]),
   ),
 )
-assert.deepStrictEqual(Dir.fromCommands(testOutput).sum, 95_437)
-assert.deepStrictEqual(Dir.fromCommands(testOutput).bestSize, 24_933_642)
+assert.deepEqual(Dir.fromCommands(testOutput).sum, 95_437)
+assert.deepEqual(Dir.fromCommands(testOutput).bestSize, 24_933_642)
 
 console.log(Dir.fromCommands(await input(7)).sum)
 console.log(Dir.fromCommands(await input(7)).bestSize)

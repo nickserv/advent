@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input } from "./util.js"
 
 function parseStacks(input: string) {
@@ -39,8 +39,8 @@ move 1 from 2 to 1
 move 3 from 1 to 3
 move 2 from 2 to 1
 move 1 from 1 to 2`)
-assert.deepStrictEqual(testStacks, ["ZN", "MCD", "P"])
-assert.deepStrictEqual(testMoves, [
+assert.deepEqual(testStacks, ["ZN", "MCD", "P"])
+assert.deepEqual(testMoves, [
   { quantity: 1, start: 2, end: 1 },
   { quantity: 3, start: 1, end: 3 },
   { quantity: 2, start: 2, end: 1 },
@@ -74,15 +74,15 @@ function doMoves(stacks: string[], moves: Move[], multiple = false) {
   return moves.reduce((stacks, move) => doMove(stacks, move, multiple), stacks)
 }
 
-assert.deepStrictEqual(doMoves(testStacks, testMoves), ["C", "M", "PDNZ"])
-assert.deepStrictEqual(doMoves(testStacks, testMoves, true), ["M", "C", "PZND"])
+assert.deepEqual(doMoves(testStacks, testMoves), ["C", "M", "PDNZ"])
+assert.deepEqual(doMoves(testStacks, testMoves, true), ["M", "C", "PZND"])
 
 function message(stacks: string[]) {
   return stacks.map((stack) => stack.slice(-1)).join("")
 }
 
-assert.strictEqual(message(["C", "M", "PDNZ"]), "CMZ")
-assert.strictEqual(message(["M", "C", "PZND"]), "MCD")
+assert.equal(message(["C", "M", "PDNZ"]), "CMZ")
+assert.equal(message(["M", "C", "PZND"]), "MCD")
 
 const [stacks, moves] = parseInput(await input(5))
 console.log(message(doMoves(stacks, moves)))

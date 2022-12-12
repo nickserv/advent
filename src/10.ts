@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input, sum } from "./util.js"
 
 function parseInstruction(input: string) {
@@ -10,7 +10,7 @@ addx 3
 addx -5`
   .split("\n")
   .map(parseInstruction)
-assert.deepStrictEqual(testInstructions, [undefined, 3, -5])
+assert.deepEqual(testInstructions, [undefined, 3, -5])
 
 function execute(instructions: (number | undefined)[], x = 1): number[] {
   if (instructions.length) {
@@ -22,7 +22,7 @@ function execute(instructions: (number | undefined)[], x = 1): number[] {
   } else return []
 }
 
-assert.deepStrictEqual(execute(testInstructions), [1, 1, 4, 4, -1])
+assert.deepEqual(execute(testInstructions), [1, 1, 4, 4, -1])
 
 const xs = execute((await input(10)).split("\n").map(parseInstruction))
 
@@ -181,7 +181,7 @@ noop`
     .split("\n")
     .map(parseInstruction),
 )
-assert.strictEqual(sumSignalStrengths(testXs), 13_140)
+assert.equal(sumSignalStrengths(testXs), 13_140)
 
 console.log(sumSignalStrengths(xs))
 
@@ -198,7 +198,7 @@ function render(xs: number[]) {
     .join("")
 }
 
-assert.strictEqual(
+assert.equal(
   render(testXs),
   `##..##..##..##..##..##..##..##..##..##..
 ###...###...###...###...###...###...###.

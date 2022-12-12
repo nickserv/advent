@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input } from "./util.js"
 
 type Forest = number[][]
@@ -70,19 +70,16 @@ const testForest = Forest.parse(`30373
 33549
 35390`)
 const middle = new Position(2, 2)
-assert.deepStrictEqual(
-  findTreesInDirection(testForest, middle, Direction.Up),
-  [5, 3],
-)
-assert.deepStrictEqual(
+assert.deepEqual(findTreesInDirection(testForest, middle, Direction.Up), [5, 3])
+assert.deepEqual(
   findTreesInDirection(testForest, middle, Direction.Down),
   [5, 3],
 )
-assert.deepStrictEqual(
+assert.deepEqual(
   findTreesInDirection(testForest, middle, Direction.Left),
   [5, 6],
 )
-assert.deepStrictEqual(
+assert.deepEqual(
   findTreesInDirection(testForest, middle, Direction.Right),
   [3, 2],
 )
@@ -124,7 +121,7 @@ function visibleCount(forest: Forest) {
   return count
 }
 
-assert.strictEqual(visibleCount(testForest), 21)
+assert.equal(visibleCount(testForest), 21)
 
 console.log(visibleCount(Forest.parse(await input(8))))
 
@@ -140,14 +137,14 @@ function distance(forest: Forest, position: Position, direction: Direction) {
   }
 }
 
-assert.strictEqual(distance(testForest, new Position(1, 2), Direction.Up), 1)
-assert.strictEqual(distance(testForest, new Position(1, 2), Direction.Left), 1)
-assert.strictEqual(distance(testForest, new Position(1, 2), Direction.Right), 2)
-assert.strictEqual(distance(testForest, new Position(1, 2), Direction.Down), 2)
-assert.strictEqual(distance(testForest, new Position(3, 2), Direction.Up), 2)
-assert.strictEqual(distance(testForest, new Position(3, 2), Direction.Left), 2)
-assert.strictEqual(distance(testForest, new Position(3, 2), Direction.Down), 1)
-assert.strictEqual(distance(testForest, new Position(3, 2), Direction.Right), 2)
+assert.equal(distance(testForest, new Position(1, 2), Direction.Up), 1)
+assert.equal(distance(testForest, new Position(1, 2), Direction.Left), 1)
+assert.equal(distance(testForest, new Position(1, 2), Direction.Right), 2)
+assert.equal(distance(testForest, new Position(1, 2), Direction.Down), 2)
+assert.equal(distance(testForest, new Position(3, 2), Direction.Up), 2)
+assert.equal(distance(testForest, new Position(3, 2), Direction.Left), 2)
+assert.equal(distance(testForest, new Position(3, 2), Direction.Down), 1)
+assert.equal(distance(testForest, new Position(3, 2), Direction.Right), 2)
 
 function score(forest: Forest, position: Position) {
   return directions
@@ -166,6 +163,6 @@ function highestScore(forest: Forest) {
   return highest
 }
 
-assert.strictEqual(highestScore(testForest), 8)
+assert.equal(highestScore(testForest), 8)
 
 console.log(highestScore(Forest.parse(await input(8))))

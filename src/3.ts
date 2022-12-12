@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input, sum } from "./util.js"
 
 function parseSplitRucksack(line: string) {
@@ -23,12 +23,12 @@ const testLines = [
   "ttgJtRGJQctTZtZT",
   "CrZsJsPPZsGzwwsLwLmpwMDw",
 ]
-assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[0])), "p")
-assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[1])), "L")
-assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[2])), "P")
-assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[3])), "v")
-assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[4])), "t")
-assert.strictEqual(rucksackIntersection(parseSplitRucksack(testLines[5])), "s")
+assert.equal(rucksackIntersection(parseSplitRucksack(testLines[0])), "p")
+assert.equal(rucksackIntersection(parseSplitRucksack(testLines[1])), "L")
+assert.equal(rucksackIntersection(parseSplitRucksack(testLines[2])), "P")
+assert.equal(rucksackIntersection(parseSplitRucksack(testLines[3])), "v")
+assert.equal(rucksackIntersection(parseSplitRucksack(testLines[4])), "t")
+assert.equal(rucksackIntersection(parseSplitRucksack(testLines[5])), "s")
 
 function priority(char: string) {
   return (
@@ -39,13 +39,13 @@ function priority(char: string) {
   )
 }
 
-assert.strictEqual(priority("p"), 16)
-assert.strictEqual(priority("L"), 38)
-assert.strictEqual(priority("P"), 42)
-assert.strictEqual(priority("v"), 22)
-assert.strictEqual(priority("t"), 20)
-assert.strictEqual(priority("s"), 19)
-assert.strictEqual(
+assert.equal(priority("p"), 16)
+assert.equal(priority("L"), 38)
+assert.equal(priority("P"), 42)
+assert.equal(priority("v"), 22)
+assert.equal(priority("t"), 20)
+assert.equal(priority("s"), 19)
+assert.equal(
   sum(
     testLines.map((line) =>
       priority(rucksackIntersection(parseSplitRucksack(line))),
@@ -64,11 +64,11 @@ console.log(
   ),
 )
 
-assert.strictEqual(
+assert.equal(
   rucksackIntersection(testLines.slice(0, 3).map((line) => new Set(line))),
   "r",
 )
-assert.strictEqual(
+assert.equal(
   rucksackIntersection(testLines.slice(3).map((line) => new Set(line))),
   "Z",
 )
@@ -79,7 +79,7 @@ function partition<T>(array: T[], n: number): T[][] {
     : []
 }
 
-assert.strictEqual(
+assert.equal(
   sum(
     partition(
       testLines.map((line) => new Set(line)),

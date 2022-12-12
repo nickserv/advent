@@ -1,4 +1,4 @@
-import assert from "assert"
+import assert from "assert/strict"
 import { input } from "./util.js"
 
 function product(numbers: number[]) {
@@ -100,7 +100,7 @@ Monkey 3:
     If false: throw to monkey 1`
 let testMonkeys = Monkey.parse(testInput)
 inspectAll(testMonkeys, 20)
-assert.strictEqual(monkeyBusiness(testMonkeys), 10_605)
+assert.equal(monkeyBusiness(testMonkeys), 10_605)
 
 let monkeys = Monkey.parse(await input(11))
 inspectAll(monkeys, 20)
@@ -108,7 +108,7 @@ console.log(monkeyBusiness(monkeys))
 
 testMonkeys = Monkey.parse(testInput)
 inspectAll(testMonkeys, 10_000, true)
-assert.strictEqual(monkeyBusiness(testMonkeys), 2_713_310_158)
+assert.equal(monkeyBusiness(testMonkeys), 2_713_310_158)
 
 monkeys = Monkey.parse(await input(11))
 inspectAll(monkeys, 10_000, true)
