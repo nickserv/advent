@@ -18,22 +18,33 @@ class Range {
   }
 }
 
+class RangePair {
+  constructor(public first: Range, public second: Range) {}
+
+  static parse(input: string) {
+    const [first, second] = input.split(",").map(Range.parse)
+    return new RangePair(first, second)
+  }
+
+  contains() {
+    return this.first.contains(this.second) || this.second.contains(this.first)
+  }
+
+  overlaps() {
+    return this.first.overlaps(this.second)
+  }
+}
+
 function parseInput(input: string) {
-  return input.split("\n").map((line): [Range, Range] => {
-    const [first, second] = line.split(",").map(Range.parse)
-    return [first, second]
-  })
+  return input.split("\n").map(RangePair.parse)
 }
 
 function count<T>(array: T[], predicate: (value: T) => boolean) {
   return array.filter(predicate).length
 }
 
-function containedRanges(ranges: [Range, Range][]) {
-  return count(
-    ranges,
-    ([range1, range2]) => range1.contains(range2) || range2.contains(range1),
-  )
+function containedRanges(pairs: RangePair[]) {
+  return count(pairs, (pair) => pair.contains())
 }
 
 const testRangePairs = parseInput(
@@ -49,8 +60,8 @@ assert.strictEqual(containedRanges(testRangePairs), 2)
 const rangePairs = parseInput(await input(4))
 console.log(containedRanges(rangePairs))
 
-function overlappingRanges(ranges: [Range, Range][]) {
-  return count(ranges, ([range1, range2]) => range1.overlaps(range2))
+function overlappingRanges(pairs: RangePair[]) {
+  return count(pairs, (pair) => pair.overlaps())
 }
 
 assert.strictEqual(overlappingRanges(testRangePairs), 4)
