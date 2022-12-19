@@ -1,38 +1,50 @@
 import assert from "assert/strict"
 import { input } from "./util.js"
 
-interface Range {
-  start: number
-  end: number
+class Range {
+  constructor(public start: number, public end: number) {}
+
+  static parse(input: string) {
+    const [start, end] = input.split("-").map((d) => parseInt(d))
+    return new Range(start, end)
+  }
+
+  contains(other: Range) {
+    return this.start <= other.start && this.end >= other.end
+  }
+
+  overlaps(other: Range) {
+    return this.start <= other.end && this.end >= other.start
+  }
+}
+
+class RangePair {
+  constructor(public first: Range, public second: Range) {}
+
+  static parse(input: string) {
+    const [first, second] = input.split(",").map(Range.parse)
+    return new RangePair(first, second)
+  }
+
+  contains() {
+    return this.first.contains(this.second) || this.second.contains(this.first)
+  }
+
+  overlaps() {
+    return this.first.overlaps(this.second)
+  }
 }
 
 function parseInput(input: string) {
-  return input.split("\n").map((line): [Range, Range] => {
-    const numbers = /(\d+)-(\d+),(\d+)-(\d+)/
-      .exec(line)!
-      .slice(1)
-      .map((d) => parseInt(d))
-    return [
-      { start: numbers[0], end: numbers[1] },
-      { start: numbers[2], end: numbers[3] },
-    ]
-  })
+  return input.split("\n").map(RangePair.parse)
 }
 
 function count<T>(array: T[], predicate: (value: T) => boolean) {
   return array.filter(predicate).length
 }
 
-function rangeContains(range1: Range, range2: Range) {
-  return range1.start <= range2.start && range1.end >= range2.end
-}
-
-function containedRanges(ranges: [Range, Range][]) {
-  return count(
-    ranges,
-    ([range1, range2]) =>
-      rangeContains(range1, range2) || rangeContains(range2, range1),
-  )
+function containedRanges(pairs: RangePair[]) {
+  return count(pairs, (pair) => pair.contains())
 }
 
 const testRangePairs = parseInput(
@@ -48,12 +60,8 @@ assert.equal(containedRanges(testRangePairs), 2)
 const rangePairs = parseInput(await input(4))
 console.log(containedRanges(rangePairs))
 
-function rangeOverlaps(range1: Range, range2: Range) {
-  return range1.start <= range2.end && range1.end >= range2.start
-}
-
-function overlappingRanges(ranges: [Range, Range][]) {
-  return count(ranges, ([range1, range2]) => rangeOverlaps(range1, range2))
+function overlappingRanges(pairs: RangePair[]) {
+  return count(pairs, (pair) => pair.overlaps())
 }
 
 assert.equal(overlappingRanges(testRangePairs), 4)
