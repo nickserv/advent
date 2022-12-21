@@ -40,13 +40,12 @@ function parseInstruction(input: string) {
         right?: Instruction
       }
   >(
-    [...declarationMap].map(([register, instruction]) => {
-      if (typeof instruction === "number") {
-        return [register, instruction]
-      } else {
-        return [register, { type: instruction.type }]
-      }
-    }),
+    [...declarationMap].map(([register, instruction]) => [
+      register,
+      typeof instruction === "number"
+        ? instruction
+        : { type: instruction.type },
+    ]),
   )
   for (const [register, value] of map) {
     const declaration = declarationMap.get(register)!
