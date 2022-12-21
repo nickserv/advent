@@ -19,7 +19,7 @@ interface Operation {
 
 type Instruction = number | Operation
 
-function parseInstructions(input: string) {
+function parseInstruction(input: string) {
   const declarationMap = new Map(
     input.split("\n").map((line) => {
       const [register, value] = line.split(": ")
@@ -55,7 +55,7 @@ function parseInstructions(input: string) {
       value.right = map.get(declaration.right) as Operation
     }
   }
-  return map.get("root") as Operation
+  return map.get("root") as Instruction
 }
 
 function evaluate(instruction: Instruction): number {
@@ -76,7 +76,7 @@ function evaluate(instruction: Instruction): number {
   }
 }
 
-const testInstructions = parseInstructions(`root: pppw + sjmn
+const testInstruction = parseInstruction(`root: pppw + sjmn
 dbpl: 5
 cczh: sllz + lgvd
 zczc: 2
@@ -91,7 +91,7 @@ pppw: cczh / lfqf
 lgvd: ljgn * ptdq
 drzm: hmdt - zczc
 hmdt: 32`)
-assert.equal(evaluate(testInstructions), 152)
+assert.equal(evaluate(testInstruction), 152)
 
-const instructions = parseInstructions(await input(21))
-console.log(evaluate(instructions))
+const instruction = parseInstruction(await input(21))
+console.log(evaluate(instruction))
