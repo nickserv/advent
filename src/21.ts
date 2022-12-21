@@ -55,7 +55,7 @@ function parseInstructions(input: string) {
       value.right = map.get(declaration.right) as Operation
     }
   }
-  return map as Map<string, Instruction>
+  return map.get("root") as Operation
 }
 
 function evaluate(instruction: Instruction): number {
@@ -91,7 +91,7 @@ pppw: cczh / lfqf
 lgvd: ljgn * ptdq
 drzm: hmdt - zczc
 hmdt: 32`)
-assert.equal(evaluate(testInstructions.get("root")!), 152)
+assert.equal(evaluate(testInstructions), 152)
 
 const instructions = parseInstructions(await input(21))
-console.log(evaluate(instructions.get("root")!))
+console.log(evaluate(instructions))
