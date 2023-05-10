@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "pretest": "prettier --check .",
-    "test": "ts-node src/test.ts"
+    "test": "node --loader ts-node/esm src/test.ts"
   },
   "dependencies": {
     "@types/node": "^16.18.8",
