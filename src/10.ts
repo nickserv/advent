@@ -1,38 +1,38 @@
-import assert from "assert/strict"
-import { input, sum } from "./util.js"
+import assert from "assert/strict";
+import { input, sum } from "./util.js";
 
 function parseInstruction(input: string) {
-  if (input.startsWith("addx ")) return parseInt(input.slice(5))
+	if (input.startsWith("addx ")) return parseInt(input.slice(5));
 }
 
 const testInstructions = `noop
 addx 3
 addx -5`
-  .split("\n")
-  .map(parseInstruction)
-assert.deepEqual(testInstructions, [undefined, 3, -5])
+	.split("\n")
+	.map(parseInstruction);
+assert.deepEqual(testInstructions, [undefined, 3, -5]);
 
 function execute(instructions: (number | undefined)[], x = 1): number[] {
-  if (instructions.length) {
-    const [instruction, ...rest] = instructions
-    const next = instruction
-      ? [x + instruction, ...execute(rest, x + instruction)]
-      : execute(rest, x)
-    return [x, ...next]
-  } else return []
+	if (instructions.length) {
+		const [instruction, ...rest] = instructions;
+		const next = instruction
+			? [x + instruction, ...execute(rest, x + instruction)]
+			: execute(rest, x);
+		return [x, ...next];
+	} else return [];
 }
 
-assert.deepEqual(execute(testInstructions), [1, 1, 4, 4, -1])
+assert.deepEqual(execute(testInstructions), [1, 1, 4, 4, -1]);
 
-const xs = execute((await input(10)).split("\n").map(parseInstruction))
+const xs = execute((await input(10)).split("\n").map(parseInstruction));
 
-const cycles = [20, 60, 100, 140, 180, 220]
+const cycles = [20, 60, 100, 140, 180, 220];
 function sumSignalStrengths(xs: number[]) {
-  return sum(cycles.map((cycle) => cycle * xs[cycle - 2]))
+	return sum(cycles.map((cycle) => cycle * xs[cycle - 2]));
 }
 
 const testXs = execute(
-  `addx 15
+	`addx 15
 addx -11
 addx 6
 addx -3
@@ -178,34 +178,34 @@ addx -11
 noop
 noop
 noop`
-    .split("\n")
-    .map(parseInstruction),
-)
-assert.equal(sumSignalStrengths(testXs), 13_140)
+		.split("\n")
+		.map(parseInstruction),
+);
+assert.equal(sumSignalStrengths(testXs), 13_140);
 
-console.log(sumSignalStrengths(xs))
+console.log(sumSignalStrengths(xs));
 
 function render(xs: number[]) {
-  let previous = 1
-  return xs
-    .map((next, index) => {
-      const remainder = index % 40
-      const newline = index && !remainder ? "\n" : ""
-      const pixel = Math.abs(previous - remainder) < 2 ? "#" : "."
-      previous = next
-      return `${newline}${pixel}`
-    })
-    .join("")
+	let previous = 1;
+	return xs
+		.map((next, index) => {
+			const remainder = index % 40;
+			const newline = index && !remainder ? "\n" : "";
+			const pixel = Math.abs(previous - remainder) < 2 ? "#" : ".";
+			previous = next;
+			return `${newline}${pixel}`;
+		})
+		.join("");
 }
 
 assert.equal(
-  render(testXs),
-  `##..##..##..##..##..##..##..##..##..##..
+	render(testXs),
+	`##..##..##..##..##..##..##..##..##..##..
 ###...###...###...###...###...###...###.
 ####....####....####....####....####....
 #####.....#####.....#####.....#####.....
 ######......######......######......####
 #######.......#######.......#######.....`,
-)
+);
 
-console.log(render(xs))
+console.log(render(xs));
