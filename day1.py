@@ -22,7 +22,7 @@ def find_digits(line: str, range: range):
     return 0
 
 
-def calibration_value(line: str, parse=False):
+def calibration_value(line: str, parse: bool = False):
     if parse:
         first = find_digits(line, range(len(line)))
         last = find_digits(line, range(len(line) - 1, -1, -1))
@@ -32,7 +32,7 @@ def calibration_value(line: str, parse=False):
     return first * 10 + last
 
 
-def calibration_value_sum(lines: list[str], parse=False):
+def calibration_value_sum(lines: list[str], parse: bool = False):
     return sum([calibration_value(line, parse) for line in lines])
 
 
