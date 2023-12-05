@@ -1,8 +1,6 @@
 import unittest
 
-
 from day4 import Card
-
 
 CARDS = [
     Card(line)
