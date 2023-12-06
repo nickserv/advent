@@ -21,9 +21,9 @@ def sum_points(cards: list[Card]):
 
 def sum_bonuses(cards: list[Card]):
     bonuses = [1] * len(cards)
-    for card_index, card in enumerate(cards):
-        for bonus_index in range(card_index + 1, card_index + 1 + card.matches()):
-            bonuses[bonus_index] += bonuses[card_index]
+    for i, (card, bonus) in enumerate(zip(cards, bonuses)):
+        for j in range(i + 1, i + 1 + card.matches()):
+            bonuses[j] += bonus
     return sum(bonuses)
 
 
