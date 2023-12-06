@@ -1,6 +1,6 @@
 import unittest
 
-from day4 import Card
+from day4 import Card, sum_bonuses, sum_points
 
 CARDS = [
     Card(line)
@@ -20,6 +20,14 @@ class Test(unittest.TestCase):
         self.assertEqual(CARDS[0].winning, {41, 48, 83, 86, 17})
         self.assertEqual(CARDS[0].have, {83, 86, 6, 31, 17, 9, 48, 53})
 
+    def test_matches(self):
+        self.assertEqual(CARDS[0].matches(), 4)
+        self.assertEqual(CARDS[1].matches(), 2)
+        self.assertEqual(CARDS[2].matches(), 2)
+        self.assertEqual(CARDS[3].matches(), 1)
+        self.assertEqual(CARDS[4].matches(), 0)
+        self.assertEqual(CARDS[5].matches(), 0)
+
     def test_points(self):
         self.assertEqual(CARDS[0].points(), 8)
         self.assertEqual(CARDS[1].points(), 2)
@@ -28,5 +36,8 @@ class Test(unittest.TestCase):
         self.assertEqual(CARDS[4].points(), 0)
         self.assertEqual(CARDS[5].points(), 0)
 
-    def test_sum(self):
-        self.assertEqual(Card.sum(CARDS), 13)
+    def test_sum_points(self):
+        self.assertEqual(sum_points(CARDS), 13)
+
+    def test_sum_bonuses(self):
+        self.assertEqual(sum_bonuses(CARDS), 30)
