@@ -13,23 +13,20 @@ DIGITS = (
 )
 
 
-def find_digits(line: str, range: range):
+def find_digits(line: str, range: range, parse: bool = False):
     for index in range:
         if line[index].isdigit():
             return int(line[index])
-        for digit_index, digit in enumerate(DIGITS):
-            if line[index:].startswith(digit):
-                return digit_index + 1
+        if parse:
+            for digit_index, digit in enumerate(DIGITS):
+                if line[index:].startswith(digit):
+                    return digit_index + 1
     return 0
 
 
 def calibration_value(line: str, parse: bool = False):
-    if parse:
-        first = find_digits(line, range(len(line)))
-        last = find_digits(line, range(len(line) - 1, -1, -1))
-    else:
-        digits = [int(char) for char in line if char.isdigit()]
-        first, *_, last = digits[0], digits[-1]
+    first = find_digits(line, range(len(line)), parse)
+    last = find_digits(line, range(len(line) - 1, -1, -1), parse)
     return first * 10 + last
 
 
