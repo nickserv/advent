@@ -1,3 +1,5 @@
+from typing import Sequence
+
 DIGITS = (
     "one",
     "two",
@@ -31,7 +33,7 @@ def calibration_value(line: str, parse: bool = False):
     return first * 10 + last
 
 
-def calibration_value_sum(lines: list[str], parse: bool = False):
+def calibration_value_sum(lines: Sequence[str], parse: bool = False):
     return sum(calibration_value(line, parse) for line in lines)
 
 

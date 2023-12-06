@@ -2,10 +2,10 @@ import unittest
 
 from day6 import displacement, parse_race, parse_races, product_solutions, solutions
 
-INPUT = """
+LINES = """
 Time:      7  15   30
 Distance:  9  40  200        
-""".strip()
+""".strip().splitlines()
 
 
 class Test(unittest.TestCase):
@@ -23,7 +23,7 @@ class Test(unittest.TestCase):
         self.assertEqual(solutions(7, 9), 4)
         self.assertEqual(solutions(15, 40), 8)
         self.assertEqual(solutions(30, 200), 9)
-        self.assertEqual(solutions(*parse_race(INPUT)), 71503)
+        self.assertEqual(solutions(*parse_race(LINES)), 71503)
 
     def test_product_solutions(self):
-        self.assertEqual(product_solutions(parse_races(INPUT)), 288)
+        self.assertEqual(product_solutions(parse_races(LINES)), 288)
