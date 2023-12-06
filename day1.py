@@ -15,10 +15,9 @@ def find_digits(line: str, range: range):
     for index in range:
         if line[index].isdigit():
             return int(line[index])
-        else:
-            for digit_index, digit in enumerate(DIGITS):
-                if line[index:].startswith(digit):
-                    return digit_index + 1
+        for digit_index, digit in enumerate(DIGITS):
+            if line[index:].startswith(digit):
+                return digit_index + 1
     return 0
 
 
@@ -33,10 +32,11 @@ def calibration_value(line: str, parse: bool = False):
 
 
 def calibration_value_sum(lines: list[str], parse: bool = False):
-    return sum([calibration_value(line, parse) for line in lines])
+    return sum(calibration_value(line, parse) for line in lines)
 
 
-with open("resources/1.txt") as f:
-    lines = f.readlines()
-    for parse in False, True:
-        print(calibration_value_sum(lines, parse))
+if __name__ == "__main__":
+    with open("resources/1.txt", encoding="utf8") as file:
+        lines = file.readlines()
+        for parse in False, True:
+            print(calibration_value_sum(lines, parse))

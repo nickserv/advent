@@ -20,22 +20,31 @@ class Test(unittest.TestCase):
         self.assertEqual(calibration_value("7pqrstsixteen", True), 76)
 
     def test_calibration_value_sum(self):
-        INPUT = """
-            1abc2
-            pqr3stu8vwx
-            a1b2c3d4e5f
-            treb7uchet
-        """.strip()
-        self.assertEqual(calibration_value_sum(INPUT.splitlines()), 142)
+        self.assertEqual(
+            calibration_value_sum(
+                """
+1abc2
+pqr3stu8vwx
+a1b2c3d4e5f
+treb7uchet
+                """.strip().splitlines()
+            ),
+            142,
+        )
 
     def test_calibration_value_sum_parse(self):
-        INPUT = """
-            two1nine
-            eightwothree
-            abcone2threexyz
-            xtwone3four
-            4nineeightseven2
-            zoneight234
-            7pqrstsixteen
-        """.strip()
-        self.assertEqual(calibration_value_sum(INPUT.splitlines(), True), 281)
+        self.assertEqual(
+            calibration_value_sum(
+                """
+two1nine
+eightwothree
+abcone2threexyz
+xtwone3four
+4nineeightseven2
+zoneight234
+7pqrstsixteen
+                """.strip().splitlines(),
+                True,
+            ),
+            281,
+        )
