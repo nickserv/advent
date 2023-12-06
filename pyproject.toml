@@ -1,0 +1,13 @@
+[tool.isort]
+profile = "black"
+
+[tool.pylint]
+recursive = "yes"
+disable = [
+	"missing-module-docstring",
+	"missing-class-docstring",
+	"missing-function-docstring",
+]
+
+[tool.pyright]
+typeCheckingMode = "strict"
