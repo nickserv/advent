@@ -2,12 +2,12 @@
 profile = "black"
 
 [tool.pylint]
-recursive = "yes"
 disable = [
-	"missing-module-docstring",
 	"missing-class-docstring",
 	"missing-function-docstring",
+	"missing-module-docstring",
 ]
+recursive = "yes"
 
 [tool.pyright]
 typeCheckingMode = "strict"
