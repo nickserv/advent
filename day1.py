@@ -13,8 +13,8 @@ DIGITS = (
 )
 
 
-def find_digits(line: str, range: range, parse: bool = False):
-    for index in range:
+def find_digits(line: str, indexes: range, parse: bool = False):
+    for index in indexes:
         if line[index].isdigit():
             return int(line[index])
         if parse:
