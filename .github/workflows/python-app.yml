@@ -1,0 +1,16 @@
+name: Python application
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - run: pip install -r requirements.txt
+    - run: black --check .
+    - run: isort --check .
+    - run: pylint --check .
+    - run: pyright
+    - run: python -m unittest
