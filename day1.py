@@ -37,5 +37,5 @@ def calibration_value_sum(lines: Sequence[str], parse: bool = False):
 if __name__ == "__main__":
     with open("resources/1.txt", encoding="utf8") as file:
         lines = file.readlines()
-        for parse in False, True:
-            print(calibration_value_sum(lines, parse))
+    for parse in False, True:
+        print(calibration_value_sum(lines, parse))

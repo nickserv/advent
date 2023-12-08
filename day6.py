@@ -26,5 +26,5 @@ def product_solutions(races: Iterator[tuple[int, int]]) -> int:
 if __name__ == "__main__":
     with open("resources/6.txt", encoding="utf8") as file:
         lines = file.readlines()
-        print(product_solutions(parse_races(lines)))
-        print(solutions(*parse_race(lines)))
+    print(product_solutions(parse_races(lines)))
+    print(solutions(*parse_race(lines)))
