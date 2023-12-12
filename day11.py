@@ -9,7 +9,7 @@ class Galaxy:
         self.col = col
 
     def __eq__(self, other: object):
-        if not other is Galaxy:
+        if not isinstance(other, Galaxy):
             return NotImplemented
         return self.row == other.row and self.col == other.col
 
