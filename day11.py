@@ -8,7 +8,9 @@ class Galaxy:
         self.row = row
         self.col = col
 
-    def __eq__(self, other: Self):
+    def __eq__(self, other: object):
+        if not other is Galaxy:
+            return NotImplemented
         return self.row == other.row and self.col == other.col
 
     def __repr__(self):
