@@ -17,6 +17,10 @@ class Test(unittest.TestCase):
         self.assertEqual(extrapolate(HISTORIES[0]), 18)
         self.assertEqual(extrapolate(HISTORIES[1]), 28)
         self.assertEqual(extrapolate(HISTORIES[2]), 68)
+        self.assertEqual(extrapolate(HISTORIES[0], True), -3)
+        self.assertEqual(extrapolate(HISTORIES[1], True), 0)
+        self.assertEqual(extrapolate(HISTORIES[2], True), 5)
 
     def test_extrapolate_all(self):
         self.assertEqual(extrapolate_all(HISTORIES), 114)
+        self.assertEqual(extrapolate_all(HISTORIES, True), 2)
