@@ -1,0 +1,6 @@
+dictionaries:
+- python
+ignorePaths:
+- __pycache__
+- resources
+- test_*.py
