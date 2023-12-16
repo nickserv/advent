@@ -18,5 +18,20 @@ class Test(unittest.TestCase):
         self.assertEqual(custom_hash("pc=6"), 214)
         self.assertEqual(custom_hash("ot=7"), 231)
         self.assertEqual(
-            custom_hash("rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7"), 1320
+            custom_hash(
+                [
+                    "rn=1",
+                    "cm-",
+                    "qp=3",
+                    "cm=2",
+                    "qp-",
+                    "pc=4",
+                    "ot=9",
+                    "ab=5",
+                    "pc-",
+                    "pc=6",
+                    "ot=7",
+                ]
+            ),
+            1320,
         )
