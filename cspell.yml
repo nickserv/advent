@@ -1,0 +1,6 @@
+dictionaries:
+- python
+useGitignore: true
+ignorePaths:
+- resources
+- test_*.py

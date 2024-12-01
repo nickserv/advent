@@ -1,0 +1,21 @@
+name: Python application
+
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - run: npx cspell .
+    - uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+        cache: pip
+    - run: pip install -r requirements.txt
+    - run: black --check .
+    - run: isort --check .
+    - run: pylint .
+    - run: pyright
+    - run: python -m unittest
