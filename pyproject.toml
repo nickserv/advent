@@ -8,7 +8,6 @@ disable = [
 	"missing-module-docstring",
 	"redefined-outer-name",
 ]
-recursive = "yes"
 
 [tool.pyright]
 typeCheckingMode = "strict"
