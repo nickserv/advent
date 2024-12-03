@@ -17,10 +17,12 @@ def calculate(instructions: list[tuple[int, int] | bool], conditional: bool = Fa
     result = 0
     scanning = True
     for instruction in instructions:
-        if isinstance(instruction, tuple) and scanning:
-            result += instruction[0] * instruction[1]
-        elif isinstance(instruction, bool) and conditional:
-            scanning = instruction
+        match instruction:
+            case x, y:
+                if scanning:
+                    result += x * y
+            case _:
+                scanning = not conditional or instruction
     return result
 
 
