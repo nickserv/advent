@@ -2,9 +2,8 @@ import unittest
 
 from day1 import parse_lists, similarity_score, total_distance
 
-
-class Test(unittest.TestCase):
-    SAMPLE = """
+LISTS = parse_lists(
+    """
 3   4
 4   3
 2   5
@@ -12,11 +11,12 @@ class Test(unittest.TestCase):
 3   9
 3   3
     """.strip()
+)
 
+
+class Test(unittest.TestCase):
     def test_total_distance(self):
-        left, right = parse_lists(self.SAMPLE)
-        self.assertEqual(total_distance(left, right), 11)
+        self.assertEqual(total_distance(*LISTS), 11)
 
     def test_similarity_score(self):
-        left, right = parse_lists(self.SAMPLE)
-        self.assertEqual(similarity_score(left, right), 31)
+        self.assertEqual(similarity_score(*LISTS), 31)
