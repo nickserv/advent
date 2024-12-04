@@ -1,26 +1,23 @@
 from itertools import product
 from pathlib import Path
 
-import numpy as np
-
 
 def parse_grid(string: str):
     return [list(line) for line in string.splitlines()]
 
 
 DIRECTIONS = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1)]
-XMAS = np.array(list("XMAS"))
+XMAS = ["X", "M", "A", "S"]
 
 
 def search_xmas(grid: list[list[str]]):
-    matrix = np.array(grid)
-    size = matrix.shape[0]
+    size = len(grid)
 
     return sum(
         # Check bounds
         0 <= x + 3 * dx < size and 0 <= y + 3 * dy < size
         # Check word match
-        and np.array_equal(matrix[x + np.arange(4) * dx, y + np.arange(4) * dy], XMAS)
+        and [grid[x + i * dx][y + i * dy] for i in range(4)] == XMAS
         for dx, dy in DIRECTIONS
         for x, y in product(range(size), repeat=2)
     )
