@@ -1,9 +1,8 @@
 import unittest
 
-from day4 import parse_grid, search_x_mas, search_xmas
+from day4 import search_x_mas, search_xmas
 
-GRID = parse_grid(
-    """
+GRID = """
 MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
@@ -14,8 +13,7 @@ SMSMSASXSS
 SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX
-    """.strip()
-)
+""".strip()
 
 
 class TestDay3(unittest.TestCase):
