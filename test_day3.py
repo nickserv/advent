@@ -10,7 +10,7 @@ INPUT_COND = parse_instructions(
 )
 
 
-class TestDay2(unittest.TestCase):
+class TestDay3(unittest.TestCase):
     def test_calculate(self):
         self.assertEqual(calculate(INPUT), 161)
 

@@ -14,7 +14,7 @@ LISTS = parse_lists(
 )
 
 
-class Test(unittest.TestCase):
+class TestDay1(unittest.TestCase):
     def test_total_distance(self):
         self.assertEqual(total_distance(*LISTS), 11)
 

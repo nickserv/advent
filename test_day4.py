@@ -16,7 +16,7 @@ MXMXAXMASX
 """.strip()
 
 
-class TestDay3(unittest.TestCase):
+class TestDay4(unittest.TestCase):
     def test_search_xmas(self):
         self.assertEqual(search_xmas(GRID), 18)
 
