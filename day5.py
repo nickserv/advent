@@ -33,10 +33,9 @@ def fix_update_order(update: Update, rules: list[Rule]) -> Update:
     def cmp(x: int, y: int):
         if (x, y) in rules:
             return -1
-        elif (y, x) in rules:
+        if (y, x) in rules:
             return 1
-        else:
-            return NotImplemented
+        return NotImplemented
 
     return sorted(update, key=cmp_to_key(cmp))
 
