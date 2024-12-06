@@ -16,12 +16,12 @@ def parse_update(string: str) -> Update:
 
 def parse(string: str):
     top, _, bottom = string.partition("\n\n")
-    rules = [parse_rule(rule) for rule in top.splitlines()]
+    rules = {parse_rule(rule) for rule in top.splitlines()}
     updates = [parse_update(update) for update in bottom.splitlines()]
     return rules, updates
 
 
-def check_update_order(update: Update, rules: list[Rule]):
+def check_update_order(update: Update, rules: set[Rule]):
     return all(
         not (rule[0] in update and rule[1] in update)
         or update.index(rule[0]) < update.index(rule[1])
@@ -29,7 +29,7 @@ def check_update_order(update: Update, rules: list[Rule]):
     )
 
 
-def fix_update_order(update: Update, rules: list[Rule]) -> Update:
+def fix_update_order(update: Update, rules: set[Rule]) -> Update:
     def cmp(x: int, y: int):
         if (x, y) in rules:
             return -1
@@ -40,7 +40,7 @@ def fix_update_order(update: Update, rules: list[Rule]) -> Update:
     return sorted(update, key=cmp_to_key(cmp))
 
 
-def sum_middle_numbers(updates: list[Update], rules: list[Rule]):
+def sum_middle_numbers(updates: list[Update], rules: set[Rule]):
     return sum(
         update[len(update) // 2]
         for update in updates
@@ -48,7 +48,7 @@ def sum_middle_numbers(updates: list[Update], rules: list[Rule]):
     )
 
 
-def sum_middle_numbers_fixed(updates: list[Update], rules: list[Rule]):
+def sum_middle_numbers_fixed(updates: list[Update], rules: set[Rule]):
     return sum(
         fix_update_order(update, rules)[len(update) // 2]
         for update in updates
