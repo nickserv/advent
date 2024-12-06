@@ -1,3 +1,4 @@
+from functools import cmp_to_key
 from pathlib import Path
 
 type Rule = tuple[int, int]
@@ -28,6 +29,18 @@ def check_update_order(update: Update, rules: list[Rule]):
     )
 
 
+def fix_update_order(update: Update, rules: list[Rule]) -> Update:
+    def cmp(x: int, y: int):
+        if (x, y) in rules:
+            return -1
+        elif (y, x) in rules:
+            return 1
+        else:
+            return NotImplemented
+
+    return sorted(update, key=cmp_to_key(cmp))
+
+
 def sum_middle_numbers(updates: list[Update], rules: list[Rule]):
     return sum(
         update[len(update) // 2]
@@ -36,6 +49,15 @@ def sum_middle_numbers(updates: list[Update], rules: list[Rule]):
     )
 
 
+def sum_middle_numbers_fixed(updates: list[Update], rules: list[Rule]):
+    return sum(
+        fix_update_order(update, rules)[len(update) // 2]
+        for update in updates
+        if not check_update_order(update, rules)
+    )
+
+
 if __name__ == "__main__":
     rules, updates = parse(Path("resources/5.txt").read_text("utf8"))
     print(sum_middle_numbers(updates, rules))
+    print(sum_middle_numbers_fixed(updates, rules))

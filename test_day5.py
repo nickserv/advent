@@ -1,6 +1,12 @@
 import unittest
 
-from day5 import check_update_order, parse, sum_middle_numbers
+from day5 import (
+    check_update_order,
+    fix_update_order,
+    parse,
+    sum_middle_numbers,
+    sum_middle_numbers_fixed,
+)
 
 RULES, UPDATES = parse(
     """
@@ -45,5 +51,13 @@ class TestDay5(unittest.TestCase):
         self.assertFalse(check_update_order(UPDATES[4], RULES))
         self.assertFalse(check_update_order(UPDATES[5], RULES))
 
+    def test_fix_update_order(self):
+        self.assertEqual(fix_update_order(UPDATES[3], RULES), [97, 75, 47, 61, 53])
+        self.assertEqual(fix_update_order(UPDATES[4], RULES), [61, 29, 13])
+        self.assertEqual(fix_update_order(UPDATES[5], RULES), [97, 75, 47, 29, 13])
+
     def test_sum_middle_numbers(self):
         self.assertEqual(sum_middle_numbers(UPDATES, RULES), 143)
+
+    def test_sum_middle_numbers_fixed(self):
+        self.assertEqual(sum_middle_numbers_fixed(UPDATES, RULES), 123)
