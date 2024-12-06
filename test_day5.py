@@ -46,4 +46,4 @@ class TestDay5(unittest.TestCase):
         self.assertFalse(check_update_order(UPDATES[5], RULES))
 
     def test_sum_middle_numbers(self):
-        self.assertEqual(143, sum_middle_numbers(UPDATES, RULES))
+        self.assertEqual(sum_middle_numbers(UPDATES, RULES), 143)
