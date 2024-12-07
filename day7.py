@@ -42,6 +42,6 @@ def concat(x: int, y: int):
 
 
 if __name__ == "__main__":
-    equations = parse_equations(Path("resources/7.txt").read_text())
+    equations = parse_equations(Path("resources/7.txt").read_text("utf8"))
     print(total(equations, add, mul))
     print(total(equations, add, mul, concat))
