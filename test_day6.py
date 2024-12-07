@@ -64,4 +64,4 @@ class TestDay5(unittest.TestCase):
         self.assertEqual(LAB.start(), Point(4, 6))
 
     def test_lab_visualize(self):
-        self.assertMultiLineEqual(LAB.visualize(frozenset()), LAB)
+        self.assertMultiLineEqual(LAB.visualize(set()), LAB)

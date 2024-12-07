@@ -1,6 +1,6 @@
 from enum import Enum, auto
 from pathlib import Path
-from typing import NamedTuple, Optional, SupportsIndex
+from typing import NamedTuple, SupportsIndex
 
 
 class Direction(Enum):
@@ -47,30 +47,18 @@ class Lab(str):
         new_index = self.size * index.y + index.x + index.y
         return super().__getitem__(new_index)
 
-    def path(
-        self,
-        point: Optional[Point] = None,
-        direction: Direction = Direction.UP,
-    ) -> frozenset[Point]:
-        # Set default point to start
-        if point is None:
-            point = self.start()
+    def path(self):
+        direction = Direction.UP
+        point = self.start()
+        path = {point}
 
-        print(self.visualize(frozenset({point})))
+        while point.next(direction).valid(self.size):
+            if self[point.next(direction)] == "#":
+                direction = direction.next()
+            point = point.next(direction)
+            path.add(point)
 
-        # Base case
-        if not point.valid(self.size):
-            return frozenset()
-
-        # Peek forward
-        next_point = point.next(direction)
-
-        # Move forward, turning if necessary
-        return frozenset({point}) | (
-            self.path(point.next(direction.next()), direction.next())
-            if next_point.valid(self.size) and self[next_point] == "#"
-            else self.path(next_point, direction)
-        )
+        return path
 
     def point(self, index: int):
         index -= self.count("\n", 0, index)
@@ -79,7 +67,7 @@ class Lab(str):
     def start(self):
         return self.point(self.index("^"))
 
-    def visualize(self, path: frozenset[Point]):
+    def visualize(self, path: set[Point]):
         points = [[Point(x, y) for x in range(self.size)] for y in range(self.size)]
         return "\n".join(
             "".join("X" if point in path else self[point] for point in row)
