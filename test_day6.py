@@ -22,7 +22,7 @@ LAB = Lab(
 )
 
 
-class TestDay5(unittest.TestCase):
+class TestDay6(unittest.TestCase):
     def test_direction_next(self):
         self.assertEqual(Direction.UP.next(), Direction.RIGHT)
         self.assertEqual(Direction.RIGHT.next(), Direction.DOWN)
