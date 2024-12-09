@@ -1,5 +1,6 @@
 from collections import Counter
-from pathlib import Path
+
+from utils import get_input
 
 
 def parse_lists(string: str) -> tuple[list[int], list[int]]:
@@ -16,6 +17,6 @@ def similarity_score(left: list[int], right: list[int]):
 
 
 if __name__ == "__main__":
-    lists = parse_lists(Path("resources/1.txt").read_text("utf8"))
+    lists = parse_lists(get_input(1))
     print(total_distance(*lists))
     print(similarity_score(*lists))

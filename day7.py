@@ -1,8 +1,9 @@
 from itertools import chain
 from math import floor, log10
 from operator import add, mul
-from pathlib import Path
 from typing import Callable, Generator
+
+from utils import get_input
 
 
 def parse_equation(string: str):
@@ -41,6 +42,6 @@ def concat(x: int, y: int):
 
 
 if __name__ == "__main__":
-    equations = parse_equations(Path("resources/7.txt").read_text("utf8"))
+    equations = parse_equations(get_input(7))
     print(total(equations, add, mul))
     print(total(equations, add, mul, concat))

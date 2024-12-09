@@ -1,5 +1,6 @@
-from pathlib import Path
 from typing import Callable
+
+from utils import get_input
 
 
 def parse_lists(string: str):
@@ -23,6 +24,6 @@ def count(lists2: list[list[int]], safe_func: Callable[[list[int]], bool] = safe
 
 
 if __name__ == "__main__":
-    lists = parse_lists(Path("resources/2.txt").read_text("utf8"))
+    lists = parse_lists(get_input(2))
     print(count(lists))
     print(count(lists, safe_tolerant))

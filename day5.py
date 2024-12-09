@@ -1,5 +1,6 @@
 from functools import cmp_to_key
-from pathlib import Path
+
+from utils import get_input
 
 type Rule = tuple[int, int]
 type Update = list[int]
@@ -57,6 +58,6 @@ def sum_middle_numbers_fixed(updates: list[Update], rules: set[Rule]):
 
 
 if __name__ == "__main__":
-    rules, updates = parse(Path("resources/5.txt").read_text("utf8"))
+    rules, updates = parse(get_input(5))
     print(sum_middle_numbers(updates, rules))
     print(sum_middle_numbers_fixed(updates, rules))

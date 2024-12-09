@@ -1,11 +1,11 @@
 import unittest
-from textwrap import dedent
 
 from day6 import Direction, Lab, Point
+from utils import get_input
 
 ORIGIN = Point(0, 0)
 LAB = Lab(
-    dedent(
+    get_input(
         """
         ....#.....
         .........#
@@ -18,7 +18,7 @@ LAB = Lab(
         #.........
         ......#...
         """
-    ).strip()
+    )
 )
 
 
@@ -64,4 +64,4 @@ class TestDay6(unittest.TestCase):
         self.assertEqual(LAB.start(), Point(4, 6))
 
     def test_lab_visualize(self):
-        self.assertMultiLineEqual(LAB.visualize(set()), LAB)
+        self.assertEqual(LAB.visualize(set()), LAB)

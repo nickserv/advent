@@ -1,16 +1,19 @@
 import unittest
 
 from day2 import count, parse_lists, safe, safe_tolerant
+from utils import get_input
 
 LISTS = parse_lists(
-    """
-7 6 4 2 1
-1 2 7 8 9
-9 7 6 2 1
-1 3 2 4 5
-8 6 4 4 1
-1 3 6 7 9
-""".strip()
+    get_input(
+        """
+        7 6 4 2 1
+        1 2 7 8 9
+        9 7 6 2 1
+        1 3 2 4 5
+        8 6 4 4 1
+        1 3 6 7 9
+        """
+    )
 )
 
 

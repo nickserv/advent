@@ -1,6 +1,7 @@
 from enum import Enum, auto
-from pathlib import Path
 from typing import NamedTuple, SupportsIndex
+
+from utils import get_input
 
 
 class Direction(Enum):
@@ -76,5 +77,5 @@ class Lab(str):
 
 
 if __name__ == "__main__":
-    lab = Lab(Path("resources/6.txt").read_text("utf8").strip())
+    lab = Lab(get_input(6))
     print(len(lab.path()))

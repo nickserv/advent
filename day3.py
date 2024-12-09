@@ -1,6 +1,8 @@
 import re
 from pathlib import Path
 
+from utils import get_input
+
 
 def parse_instructions(string: str):
     return [
@@ -27,6 +29,6 @@ def calculate(instructions: list[tuple[int, int] | bool], conditional: bool = Fa
 
 
 if __name__ == "__main__":
-    instructions = parse_instructions(Path("resources/3.txt").read_text("utf8"))
+    instructions = parse_instructions(get_input(3))
     print(calculate(instructions))
     print(calculate(instructions, True))
