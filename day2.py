@@ -4,7 +4,7 @@ from utils import get_input
 
 
 def parse_lists(string: str):
-    return [[int(x) for x in line.split()] for line in string.strip().split("\n")]
+    return [[int(x) for x in line.split()] for line in string.splitlines()]
 
 
 def safe(list2: list[int]):

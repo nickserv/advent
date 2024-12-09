@@ -7,9 +7,9 @@ from typing import Iterable, Iterator, cast
 def get_input(day_or_string: int | str):
     match day_or_string:
         case int(day):
-            return Path(f"resources/{day}.txt").read_text("utf8").strip()
+            return Path(f"resources/{day}.txt").read_text("utf8")
         case str(string):
-            return dedent(string.strip())
+            return dedent(string).strip()
 
 
 def pairs[T](iterable: Iterable[T]):
