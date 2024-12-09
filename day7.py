@@ -2,7 +2,7 @@ from itertools import chain
 from math import floor, log10
 from operator import add, mul
 from pathlib import Path
-from typing import Callable, Iterable
+from typing import Callable, Generator
 
 
 def parse_equation(string: str):
@@ -17,17 +17,16 @@ def parse_equations(string: str):
 type BinaryOperation = Callable[[int, int], int]
 
 
-def results(numbers: list[int], *operations: BinaryOperation) -> Iterable[int]:
+def results(numbers: list[int], *operations: BinaryOperation) -> Generator[int]:
     *initial, last = numbers
-    return (
-        chain(
+    if initial:
+        yield from chain(
             operation(result, last)
             for result in results(initial, *operations)
             for operation in operations
         )
-        if initial
-        else (last,)
-    )
+    else:
+        yield last
 
 
 def total(equations: list[tuple[int, list[int]]], *operations: BinaryOperation):
