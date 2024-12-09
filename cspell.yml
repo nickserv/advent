@@ -1,6 +1,6 @@
 dictionaries:
-- python
+  - python
 useGitignore: true
 ignorePaths:
-- resources
-- test_*.py
+  - resources
+  - test_*.py
