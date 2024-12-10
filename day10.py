@@ -43,7 +43,23 @@ class TopMap:
     def scores(self):
         return (self.score(trailhead) for trailhead in self.trailheads())
 
+    def rating(self, trailhead: int):
+        trails = 0
+        queue = deque([trailhead])
+        while queue:
+            current = queue.popleft()
+            if self.list[current] == 9:
+                trails += 1
+            for neighbor in self.neighbors(current):
+                if self.list[neighbor] == self.list[current] + 1:
+                    queue.append(neighbor)
+        return trails
+
+    def ratings(self):
+        return (self.rating(trailhead) for trailhead in self.trailheads())
+
 
 if __name__ == "__main__":
     top_map = TopMap(get_input(10))
     print(sum(top_map.scores()))
+    print(sum(top_map.ratings()))
