@@ -24,38 +24,6 @@ SMALL_MAP, LARGE_MAP = (
         """,
     )
 )
-PARTIAL_MAPS = [
-    TopMap(get_input(string))
-    for string in (
-        """
-        ...0...
-        ...1...
-        ...2...
-        6543456
-        7.....7
-        8.....8
-        9.....9
-        """,
-        """
-        ..90..9
-        ...1.98
-        ...2..7
-        6543456
-        765.987
-        876....
-        987....
-        """,
-        """
-        10..9..
-        2...8..
-        3...7..
-        4567654
-        ...8..3
-        ...9..2
-        .....01
-        """,
-    )
-]
 
 
 class TestDay10(unittest.TestCase):
@@ -98,20 +66,9 @@ class TestDay10(unittest.TestCase):
             self.assertEqual(LARGE_MAP.score(54), 3)
             self.assertEqual(LARGE_MAP.score(57), 5)
 
-        with self.subTest(map="partial"):
-            self.assertEqual(PARTIAL_MAPS[0].score(3), 2)
-            self.assertEqual(PARTIAL_MAPS[1].score(4), 1)
-            self.assertEqual(PARTIAL_MAPS[1].score(47), 2)
-            self.assertEqual(PARTIAL_MAPS[2].score(3), 2)
-
     def test_map_scores(self):
         with self.subTest(map="small"):
             self.assertEqual(list(SMALL_MAP.scores()), [1])
 
         with self.subTest(map="large"):
             self.assertEqual(list(LARGE_MAP.scores()), [5, 6, 5, 3, 1, 3, 5, 3, 5])
-
-        with self.subTest(map="partial"):
-            self.assertEqual(list(PARTIAL_MAPS[0].scores()), [2])
-            self.assertEqual(list(PARTIAL_MAPS[1].scores()), [1, 2])
-            self.assertEqual(list(PARTIAL_MAPS[2].scores()), [2])

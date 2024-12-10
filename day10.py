@@ -6,9 +6,7 @@ from utils import get_input
 
 class TopMap:
     def __init__(self, string: str):
-        self.list = [
-            None if char == "." else int(char) for char in string if char != "\n"
-        ]
+        self.list = [int(char) for char in string if char != "\n"]
 
     def trailheads(self):
         return (index for index, value in enumerate(self.list) if value == 0)
