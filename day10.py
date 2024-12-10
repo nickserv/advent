@@ -1,5 +1,6 @@
 from collections import deque
 from math import sqrt
+from typing import Callable, Self
 
 from utils import get_input
 
@@ -40,9 +41,6 @@ class TopMap:
     def score(self, trailhead: int):
         return len(list(self.reachable(trailhead)))
 
-    def scores(self):
-        return (self.score(trailhead) for trailhead in self.trailheads())
-
     def rating(self, trailhead: int):
         trails = 0
         queue = deque([trailhead])
@@ -55,11 +53,11 @@ class TopMap:
                     queue.append(neighbor)
         return trails
 
-    def ratings(self):
-        return (self.rating(trailhead) for trailhead in self.trailheads())
+    def all(self, strategy: Callable[[Self, int], int]):
+        return (strategy(self, trailhead) for trailhead in self.trailheads())
 
 
 if __name__ == "__main__":
     top_map = TopMap(get_input(10))
-    print(sum(top_map.scores()))
-    print(sum(top_map.ratings()))
+    print(sum(top_map.all(TopMap.score)))
+    print(sum(top_map.all(TopMap.rating)))

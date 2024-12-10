@@ -66,13 +66,6 @@ class TestDay10(unittest.TestCase):
             self.assertEqual(LARGE_MAP.score(54), 3)
             self.assertEqual(LARGE_MAP.score(57), 5)
 
-    def test_map_scores(self):
-        with self.subTest(map="small"):
-            self.assertEqual(list(SMALL_MAP.scores()), [1])
-
-        with self.subTest(map="large"):
-            self.assertEqual(list(LARGE_MAP.scores()), [5, 6, 5, 3, 1, 3, 5, 3, 5])
-
     def test_map_rating(self):
         with self.subTest(map="large"):
             self.assertEqual(LARGE_MAP.rating(2), 20)
@@ -85,6 +78,16 @@ class TestDay10(unittest.TestCase):
             self.assertEqual(LARGE_MAP.rating(54), 8)
             self.assertEqual(LARGE_MAP.rating(57), 5)
 
-    def test_map_ratings(self):
-        with self.subTest(map="large"):
-            self.assertEqual(list(LARGE_MAP.ratings()), [20, 24, 10, 4, 1, 4, 5, 8, 5])
+    def test_map_all(self):
+        with self.subTest(map="small", strategy="score"):
+            self.assertEqual(list(SMALL_MAP.all(TopMap.score)), [1])
+
+        with self.subTest(map="large", strategy="score"):
+            self.assertEqual(
+                list(LARGE_MAP.all(TopMap.score)), [5, 6, 5, 3, 1, 3, 5, 3, 5]
+            )
+
+        with self.subTest(map="large", strategy="rating"):
+            self.assertEqual(
+                list(LARGE_MAP.all(TopMap.rating)), [20, 24, 10, 4, 1, 4, 5, 8, 5]
+            )
