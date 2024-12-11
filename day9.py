@@ -1,8 +1,6 @@
 from itertools import cycle, repeat
 from typing import Generator, Iterable, Optional
 
-from colorama import Style
-
 from utils import get_input
 
 type Blocks = list[Optional[int]]
@@ -38,23 +36,6 @@ def find_last[T](items: list[T]):
     )
 
 
-def format_block(block: Optional[int], highlight: bool):
-    return "".join(
-        (
-            Style.BRIGHT if highlight else "",
-            "." if block is None else str(block),
-            Style.RESET_ALL,
-        )
-    )
-
-
-def format_blocks(blocks: Blocks, write_index: int, read_index: int):
-    return "".join(
-        format_block(block, index in (write_index, read_index))
-        for index, block in enumerate(blocks)
-    )
-
-
 def compact(blocks: Blocks) -> CompactBlocks:
     write_index = 0
     read_index = len(blocks) - 1
@@ -64,18 +45,6 @@ def compact(blocks: Blocks) -> CompactBlocks:
         if block is None:
             if (index := find_last(blocks[:read_index])) is not None:
                 if (value := blocks[read_index]) is not None:
-                    print(
-                        format_blocks(
-                            [
-                                *compact_blocks[:(write_index)],
-                                *blocks[(write_index):read_index],
-                                blocks[read_index],
-                                *([None] * (len(blocks) - read_index - 1)),
-                            ],
-                            (write_index),
-                            read_index,
-                        )
-                    )
                     read_index = index
                     compact_blocks.append(value)
         else:
