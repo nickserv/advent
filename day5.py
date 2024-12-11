@@ -32,7 +32,9 @@ class Update(list[Page]):
 
 def parse(string: str):
     top, _, bottom = string.partition("\n\n")
-    global _rules
+    # A global is basically the only convenient way to make rules available to all instances, and
+    # composability isn't a concern since the implementation and test files only have one set of rules each.
+    global _rules  # pylint: disable=global-statement
     _rules = {Rule.parse(line) for line in top.splitlines()}
     return [Update.parse(line) for line in bottom.splitlines()]
 
