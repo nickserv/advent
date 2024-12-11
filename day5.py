@@ -1,5 +1,6 @@
 from functools import total_ordering
 from itertools import pairwise
+from typing import Sequence
 
 from utils import get_input
 
@@ -36,16 +37,16 @@ def parse(string: str):
     return [Update.parse(line) for line in bottom.splitlines()]
 
 
+def middle[T](items: Sequence[T]):
+    return items[len(items) // 2]
+
+
 def sum_middle_numbers(updates: list[Update]) -> int:
-    return sum(update[len(update) // 2] for update in updates if update.check_order())
+    return sum(middle(update) for update in updates if update.check_order())
 
 
 def sum_middle_numbers_fixed(updates: list[Update]) -> int:
-    return sum(
-        sorted(update)[len(update) // 2]
-        for update in updates
-        if not update.check_order()
-    )
+    return sum(middle(sorted(update)) for update in updates if not update.check_order())
 
 
 if __name__ == "__main__":
