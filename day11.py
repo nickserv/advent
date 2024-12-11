@@ -1,19 +1,23 @@
+from functools import cache
+from itertools import chain
 from math import floor, log10
 from typing import Callable, Iterable
 
 from utils import get_input
 
 
+@cache
+def change(stone: int) -> Iterable[int]:
+    if stone == 0:
+        return (1,)
+    quotient, remainder = divmod(floor(log10(stone)) + 1, 2)
+    if remainder == 0:
+        return divmod(stone, 10**quotient)
+    return (stone * 2024,)
+
+
 def blink(stones: Iterable[int]) -> Iterable[int]:
-    for stone in stones:
-        if stone == 0:
-            yield 1
-        else:
-            quotient, remainder = divmod(floor(log10(stone)) + 1, 2)
-            if remainder == 0:
-                yield from divmod(stone, 10**quotient)
-            else:
-                yield stone * 2024
+    return chain.from_iterable(change(stone) for stone in stones)
 
 
 def call_composed[T](func: Callable[[T], T], value: T, times: int):
