@@ -1,63 +1,54 @@
-from functools import cmp_to_key
+from functools import total_ordering
+from itertools import pairwise
 
 from utils import get_input
 
-type Rule = tuple[int, int]
-type Update = list[int]
+
+class Rule(tuple[int, int]):
+    @staticmethod
+    def parse(string: str):
+        x, _, y = string.partition("|")
+        return Rule((int(x), int(y)))
 
 
-def parse_rule(string: str) -> Rule:
-    x, _, y = string.partition("|")
-    return (int(x), int(y))
+_rules: set[Rule]
 
 
-def parse_update(string: str) -> Update:
-    return [int(x) for x in string.split(",")]
+@total_ordering
+class Page(int):
+    def __lt__(self, other: int):
+        return Rule((self, other)) in _rules
+
+
+class Update(list[Page]):
+    @staticmethod
+    def parse(string: str):
+        return Update([Page(int(x)) for x in string.split(",")])
+
+    def check_order(self):
+        return all(page < next_page for page, next_page in pairwise(self))
 
 
 def parse(string: str):
     top, _, bottom = string.partition("\n\n")
-    rules = {parse_rule(rule) for rule in top.splitlines()}
-    updates = [parse_update(update) for update in bottom.splitlines()]
-    return rules, updates
+    global _rules
+    _rules = {Rule.parse(line) for line in top.splitlines()}
+    return [Update.parse(line) for line in bottom.splitlines()]
 
 
-def check_update_order(update: Update, rules: set[Rule]):
-    return all(
-        not (rule[0] in update and rule[1] in update)
-        or update.index(rule[0]) < update.index(rule[1])
-        for rule in rules
-    )
+def sum_middle_numbers(updates: list[Update]) -> int:
+    return sum(update[len(update) // 2] for update in updates if update.check_order())
 
 
-def fix_update_order(update: Update, rules: set[Rule]) -> Update:
-    def cmp(x: int, y: int):
-        if (x, y) in rules:
-            return -1
-        if (y, x) in rules:
-            return 1
-        return NotImplemented
-
-    return sorted(update, key=cmp_to_key(cmp))
-
-
-def sum_middle_numbers(updates: list[Update], rules: set[Rule]):
+def sum_middle_numbers_fixed(updates: list[Update]) -> int:
     return sum(
-        update[len(update) // 2]
+        sorted(update)[len(update) // 2]
         for update in updates
-        if check_update_order(update, rules)
-    )
-
-
-def sum_middle_numbers_fixed(updates: list[Update], rules: set[Rule]):
-    return sum(
-        fix_update_order(update, rules)[len(update) // 2]
-        for update in updates
-        if not check_update_order(update, rules)
+        if not update.check_order()
     )
 
 
 if __name__ == "__main__":
-    rules, updates = parse(get_input(5))
-    print(sum_middle_numbers(updates, rules))
-    print(sum_middle_numbers_fixed(updates, rules))
+    updates = parse(get_input(5))
+    print(sum_middle_numbers(updates))
+    print(sum_middle_numbers_fixed(updates))

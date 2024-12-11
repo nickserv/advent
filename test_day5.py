@@ -1,15 +1,9 @@
 import unittest
 
-from day5 import (
-    check_update_order,
-    fix_update_order,
-    parse,
-    sum_middle_numbers,
-    sum_middle_numbers_fixed,
-)
+from day5 import parse, sum_middle_numbers, sum_middle_numbers_fixed
 from utils import get_input
 
-RULES, UPDATES = parse(
+UPDATES = parse(
     get_input(
         """
         47|53
@@ -46,21 +40,21 @@ RULES, UPDATES = parse(
 
 
 class TestDay5(unittest.TestCase):
-    def test_check_update_order(self):
-        self.assertTrue(check_update_order(UPDATES[0], RULES))
-        self.assertTrue(check_update_order(UPDATES[1], RULES))
-        self.assertTrue(check_update_order(UPDATES[2], RULES))
-        self.assertFalse(check_update_order(UPDATES[3], RULES))
-        self.assertFalse(check_update_order(UPDATES[4], RULES))
-        self.assertFalse(check_update_order(UPDATES[5], RULES))
+    def test_update_check_order(self):
+        self.assertTrue(UPDATES[0].check_order())
+        self.assertTrue(UPDATES[1].check_order())
+        self.assertTrue(UPDATES[2].check_order())
+        self.assertFalse(UPDATES[3].check_order())
+        self.assertFalse(UPDATES[4].check_order())
+        self.assertFalse(UPDATES[5].check_order())
 
-    def test_fix_update_order(self):
-        self.assertEqual(fix_update_order(UPDATES[3], RULES), [97, 75, 47, 61, 53])
-        self.assertEqual(fix_update_order(UPDATES[4], RULES), [61, 29, 13])
-        self.assertEqual(fix_update_order(UPDATES[5], RULES), [97, 75, 47, 29, 13])
+    def test_update_sort(self):
+        self.assertEqual(sorted(UPDATES[3]), [97, 75, 47, 61, 53])
+        self.assertEqual(sorted(UPDATES[4]), [61, 29, 13])
+        self.assertEqual(sorted(UPDATES[5]), [97, 75, 47, 29, 13])
 
     def test_sum_middle_numbers(self):
-        self.assertEqual(sum_middle_numbers(UPDATES, RULES), 143)
+        self.assertEqual(sum_middle_numbers(UPDATES), 143)
 
     def test_sum_middle_numbers_fixed(self):
-        self.assertEqual(sum_middle_numbers_fixed(UPDATES, RULES), 123)
+        self.assertEqual(sum_middle_numbers_fixed(UPDATES), 123)
