@@ -1,3 +1,4 @@
 black
+numpy
 pylint
 pyright
