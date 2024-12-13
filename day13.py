@@ -1,12 +1,12 @@
 import re
-from typing import Generator, Iterable, NamedTuple, Self
+from typing import Generator, Iterable, Self
 
 import numpy as np
 
 from utils import get_input
 
 
-class Machine(NamedTuple):
+class Machine:
     ax: np.uint
     ay: np.uint
     bx: np.uint
@@ -14,18 +14,22 @@ class Machine(NamedTuple):
     x: np.uint
     y: np.uint
 
+    def __init__(self, match: re.Match[str]):
+        for key, value in match.groupdict().items():
+            setattr(self, key, np.uint(value))
+
     @classmethod
     def parse(cls, string: str) -> Generator[Self]:
         for match in re.finditer(
             r"""
-            Button\ A:\ X\+(\d+),\ Y\+(\d+)\n
-            Button\ B:\ X\+(\d+),\ Y\+(\d+)\n
-            Prize:\ X=(\d+),\ Y=(\d+)
+            Button\ A:\ X\+(?P<ax>\d+),\ Y\+(?P<ay>\d+)\n
+            Button\ B:\ X\+(?P<bx>\d+),\ Y\+(?P<by>\d+)\n
+            Prize:\ X=(?P<x>\d+),\ Y=(?P<y>\d+)
             """,
             string,
             re.X,
         ):
-            yield cls(*(np.uint(group) for group in match.groups()))
+            yield cls(match)
 
     # Solve this system of equations:
     # ax * a + bx * b = x
