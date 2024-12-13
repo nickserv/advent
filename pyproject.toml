@@ -3,10 +3,10 @@ profile = "black"
 
 [tool.pylint]
 disable = [
-	"missing-class-docstring",
-	"missing-function-docstring",
-	"missing-module-docstring",
-	"redefined-outer-name",
+  "missing-class-docstring",
+  "missing-function-docstring",
+  "missing-module-docstring",
+  "redefined-outer-name",
 ]
 
 [tool.pyright]
