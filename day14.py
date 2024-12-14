@@ -34,7 +34,7 @@ class Point:
         return f"Point({self.x}, {self.y}, {self.clamp_x}, {self.clamp_y})"
 
 
-class Robot:
+class Robot:  # pylint: disable=too-few-public-methods
     position: Point
     velocity: Point
 
