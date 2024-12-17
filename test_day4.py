@@ -3,6 +3,7 @@ import unittest
 from day4 import Point, WordSearch
 from utils import get_input
 
+# cspell:disable
 WORD_SEARCH = WordSearch(
     get_input(
         """
@@ -19,6 +20,7 @@ WORD_SEARCH = WordSearch(
         """
     )
 )
+# cspell:enable
 
 
 class TestDay4(unittest.TestCase):
