@@ -5,8 +5,10 @@ from typing import Callable, Generator
 
 from utils import get_input
 
+type Equation = tuple[int, list[int]]
 
-def parse_equation(string: str):
+
+def parse_equation(string: str) -> Equation:
     test, _, numbers = string.partition(": ")
     return int(test), [int(number) for number in numbers.split(" ")]
 
@@ -30,7 +32,7 @@ def results(numbers: list[int], *operations: BinaryOperation) -> Generator[int]:
         yield last
 
 
-def total(equations: list[tuple[int, list[int]]], *operations: BinaryOperation):
+def total(equations: list[Equation], *operations: BinaryOperation):
     return sum(
         test for test, numbers in equations if test in results(numbers, *operations)
     )

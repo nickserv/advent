@@ -1,33 +1,33 @@
-from functools import total_ordering
 from itertools import pairwise
 from typing import Sequence
 
 from utils import get_input
 
+type Rule = tuple[int, int]
 
-class Rule(tuple[int, int]):
-    @staticmethod
-    def parse(string: str):
-        x, _, y = string.partition("|")
-        return Rule((int(x), int(y)))
+
+def parse_rule(string: str) -> Rule:
+    x, _, y = string.partition("|")
+    return int(x), int(y)
 
 
 _rules: set[Rule]
 
 
-@total_ordering
 class Page(int):
     def __lt__(self, other: int):
-        return Rule((self, other)) in _rules
+        return (self, other) in _rules
 
 
-class Update(list[Page]):
-    @staticmethod
-    def parse(string: str):
-        return Update([Page(int(x)) for x in string.split(",")])
+type Update = list[Page]
 
-    def check_order(self):
-        return all(page < next_page for page, next_page in pairwise(self))
+
+def parse_update(string: str) -> Update:
+    return [Page(x) for x in string.split(",")]
+
+
+def check_order(update: Update):
+    return all(page < next_page for page, next_page in pairwise(update))
 
 
 def parse(string: str):
@@ -36,8 +36,8 @@ def parse(string: str):
     # instances, and composability isn't a concern since the implementation and test
     # files only have one set of rules each.
     global _rules  # pylint: disable=global-statement
-    _rules = {Rule.parse(line) for line in top.splitlines()}
-    return [Update.parse(line) for line in bottom.splitlines()]
+    _rules = {parse_rule(line) for line in top.splitlines()}
+    return [parse_update(line) for line in bottom.splitlines()]
 
 
 def middle[T](items: Sequence[T]):
@@ -45,11 +45,11 @@ def middle[T](items: Sequence[T]):
 
 
 def sum_middle_numbers(updates: list[Update]) -> int:
-    return sum(middle(update) for update in updates if update.check_order())
+    return sum(middle(update) for update in updates if check_order(update))
 
 
 def sum_middle_numbers_fixed(updates: list[Update]) -> int:
-    return sum(middle(sorted(update)) for update in updates if not update.check_order())
+    return sum(middle(sorted(update)) for update in updates if not check_order(update))
 
 
 if __name__ == "__main__":

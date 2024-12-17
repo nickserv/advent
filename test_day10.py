@@ -27,12 +27,6 @@ SMALL_MAP, LARGE_MAP = (
 
 
 class TestDay10(unittest.TestCase):
-    def test_map(self):
-        with self.subTest(map="small"):
-            self.assertEqual(
-                SMALL_MAP.list, [0, 1, 2, 3, 1, 2, 3, 4, 8, 7, 6, 5, 9, 8, 7, 6]
-            )
-
     def test_map_trailheads(self):
         with self.subTest(map="small"):
             self.assertEqual(list(SMALL_MAP.trailheads()), [0])

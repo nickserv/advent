@@ -1,4 +1,5 @@
 import re
+from dataclasses import dataclass
 from typing import Generator, Iterable, Self
 
 import numpy as np
@@ -6,6 +7,7 @@ import numpy as np
 from utils import get_input
 
 
+@dataclass(kw_only=True)
 class Machine:
     ax: np.uint
     ay: np.uint
@@ -14,12 +16,8 @@ class Machine:
     x: np.uint
     y: np.uint
 
-    def __init__(self, match: re.Match[str]):
-        for key, value in match.groupdict().items():
-            setattr(self, key, np.uint(value))
-
     @classmethod
-    def parse(cls, string: str) -> Generator[Self]:
+    def many(cls, string: str) -> Generator[Self]:
         for match in re.finditer(
             r"""
             Button\ A:\ X\+(?P<ax>\d+),\ Y\+(?P<ay>\d+)\n
@@ -29,7 +27,9 @@ class Machine:
             string,
             re.X,
         ):
-            yield cls(match)
+            yield cls(
+                **{key: np.uint(value) for key, value in match.groupdict().items()}
+            )
 
     # Solve this system of equations:
     # ax * a + bx * b = x
@@ -48,5 +48,5 @@ def total_cost(machines: Iterable[Machine]):
 
 
 if __name__ == "__main__":
-    machines = tuple(Machine.parse(get_input(13)))
+    machines = tuple(Machine.many(get_input(13)))
     print(total_cost(machines))

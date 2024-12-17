@@ -16,7 +16,7 @@ def change(stone: int) -> Iterable[int]:
     return (stone * 2024,)
 
 
-def blink(stones: Iterable[int]) -> Iterable[int]:
+def blink(stones: Iterable[int]):
     return chain.from_iterable(change(stone) for stone in stones)
 
 

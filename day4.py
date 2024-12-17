@@ -1,27 +1,33 @@
-from utils import get_input, pairs
+from typing import Generator
 
-DIRECTIONS = [(0, 1), (1, 0), (0, -1), (-1, 0), (1, 1), (-1, 1), (1, -1), (-1, -1)]
+from utils import DIRECTIONS, Point, StringGrid, get_input
 
 
-def search_xmas(grid: str):
-    size = grid.index("\n")
+class WordSearch(StringGrid):
+    def __extract(self, point: Point, direction: Point):
+        i = 0
+        result = ""
 
-    return sum(
         # Check bounds
-        0 <= x + 3 * dx < size and 0 <= y + 3 * dy < size
-        # Check word match
-        and "".join(grid[(size + 1) * (y + i * dy) + x + i * dx] for i in range(4))
-        == "XMAS"
-        for dx, dy in DIRECTIONS
-        for x, y in pairs(range(size))
-    )
+        while self.valid(Point(point.x + i * direction.x, point.y + i * direction.y)):
+            result += self[point + i * direction]
+            i += 1
 
+        return result
 
-def search_x_mas(grid: str):
-    raise NotImplementedError()
+    def search_xmas(self):
+        return (
+            point
+            for direction in DIRECTIONS
+            for point in self.points()
+            if self.__extract(point, direction).startswith("XMAS")
+        )
+
+    def search_x_mas(self) -> Generator[Point]:
+        raise NotImplementedError()
 
 
 if __name__ == "__main__":
-    grid = get_input(4)
-    print(search_xmas(grid))
-    # print(search_x_mas(grid))
+    word_search = WordSearch(get_input(4))
+    print(len(list(word_search.search_xmas())))
+    # print(len(list(word_search.search_x_mas())))

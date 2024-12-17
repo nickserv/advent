@@ -1,14 +1,13 @@
 from itertools import cycle, repeat
-from typing import Generator, Iterable, Optional
+from typing import Iterable, Optional
 
 from utils import get_input
 
 type Blocks = list[Optional[int]]
 type CompactBlocks = list[int]
-type Ints = Generator[int]
 
 
-def ints(string: str) -> Ints:
+def ints(string: str):
     return (int(char) for char in string)
 
 

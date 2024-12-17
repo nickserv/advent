@@ -1,26 +1,25 @@
 from collections import deque
-from math import sqrt
 from typing import Callable, Self
 
-from utils import get_input
+from utils import Grid, get_input
 
 
-class TopMap:
+class TopMap(Grid[int]):
     def __init__(self, string: str):
-        self.list = [int(char) for char in string if char != "\n"]
+        super().__init__(int(char) for char in string if char != "\n")
 
     def trailheads(self):
-        return (index for index, value in enumerate(self.list) if value == 0)
+        return (index for index, value in enumerate(self._items) if value == 0)
 
     def neighbors(self, position: int):
-        width = int(sqrt(len(self.list)))
+        width = len(self)
         if position >= width:
             yield position - width
         if position % width != 0:
             yield position - 1
         if position % width != width - 1:
             yield position + 1
-        if position < len(self.list) - width:
+        if position < len(self._items) - width:
             yield position + width
 
     def reachable(self, trailhead: int):
@@ -28,11 +27,11 @@ class TopMap:
         queue = deque([trailhead])
         while queue:
             current = queue.popleft()
-            if self.list[current] == 9:
+            if self._items[current] == 9:
                 yield current
             for neighbor in self.neighbors(current):
                 if (
-                    self.list[neighbor] == self.list[current] + 1
+                    self._items[neighbor] == self._items[current] + 1
                     and neighbor not in visited
                 ):
                     visited.add(neighbor)
@@ -46,10 +45,10 @@ class TopMap:
         queue = deque([trailhead])
         while queue:
             current = queue.popleft()
-            if self.list[current] == 9:
+            if self._items[current] == 9:
                 trails += 1
             for neighbor in self.neighbors(current):
-                if self.list[neighbor] == self.list[current] + 1:
+                if self._items[neighbor] == self._items[current] + 1:
                     queue.append(neighbor)
         return trails
 
