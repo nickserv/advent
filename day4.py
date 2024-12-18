@@ -9,8 +9,8 @@ class WordSearch(StringGrid):
         result = ""
 
         # Check bounds
-        while self.valid(Point(point.x + i * direction.x, point.y + i * direction.y)):
-            result += self[point + i * direction]
+        while self.valid(current := point + i * direction):
+            result += self[current]
             i += 1
 
         return result

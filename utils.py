@@ -4,7 +4,7 @@ from itertools import batched, product
 from math import sqrt
 from pathlib import Path
 from textwrap import dedent
-from typing import Iterable, Self
+from typing import Generator, Iterable, Self, overload
 
 
 @dataclass(unsafe_hash=True)
@@ -14,6 +14,17 @@ class Point:
     x: int
     y: int
 
+    @staticmethod
+    def parse(string: str):
+        """Parses a string of "x,y" into a Point"""
+        x, _, y = string.partition(",")
+        return Point(int(x), int(y))
+
+    @staticmethod
+    def parse_many(string: str):
+        """Parses a string of "x,y" lines into a list of Points"""
+        return [Point.parse(line) for line in string.splitlines()]
+
     def __add__(self, other: Self):
         return Point(self.x + other.x, self.y + other.y)
 
@@ -22,6 +33,9 @@ class Point:
 
     def __rmul__(self, other: int):
         return self * other
+
+    def __str__(self):
+        return f"{self.x},{self.y}"
 
 
 STRAIGHTS = [Point(0, -1), Point(1, 0), Point(0, 1), Point(-1, 0)]
@@ -45,18 +59,29 @@ class Grid[T]:
             return self._items == other._items  # type: ignore
         return False
 
-    def __getitem__(self, point_or_index: Point | int):
-        match point_or_index:
-            case Point(x, y):
-                return self._items[len(self) * y + x]
+    def __getitem__(self, key: Point | int):
+        match key:
+            case Point():
+                return self._items[self.index(key)]
             case int(index):
                 return self._items[index]
+
+    def __setitem__(self, key: Point | int, value: T):
+        match key:
+            case Point():
+                self._items[self.index(key)] = value
+            case int(index):
+                self._items[index] = value
 
     def __len__(self):
         return int(sqrt(len(self._items)))
 
     def __str__(self):
         return self.visualize(set())
+
+    def index(self, point: Point) -> int:
+        "Convert the Point to an index in Grid's internal list"
+        return len(self) * point.y + point.x
 
     def point(self, index: int):
         """Convert the index to a Point in Grid"""
@@ -65,6 +90,22 @@ class Grid[T]:
     def points(self):
         """Get all valid Points in Grid in order"""
         return (Point(x, y) for y, x in product(range(len(self)), repeat=2))
+
+    @overload
+    def neighbors(self, key: Point) -> Generator[Point]: ...
+    @overload
+    def neighbors(self, key: int) -> Generator[int]: ...
+
+    def neighbors(self, key: Point | int) -> Generator[Point | int]:
+        """Get all valid neighbors of a Point or index in Grid"""
+        match key:
+            case Point():
+                for direction in STRAIGHTS:
+                    if self.valid(key + direction):
+                        yield key + direction
+            case int():
+                for point in self.neighbors(self.point(key)):
+                    yield self.index(point)
 
     def valid(self, point: Point):
         """Check if a Point is in Grid"""

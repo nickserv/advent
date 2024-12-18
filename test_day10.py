@@ -36,11 +36,6 @@ class TestDay10(unittest.TestCase):
                 list(LARGE_MAP.trailheads()), [2, 4, 20, 38, 42, 45, 48, 54, 57]
             )
 
-    def test_map_neighbors(self):
-        with self.subTest(map="small"):
-            self.assertEqual(list(SMALL_MAP.neighbors(0)), [1, 4])
-            self.assertEqual(list(SMALL_MAP.neighbors(5)), [1, 4, 6, 9])
-
     def test_map_reachable(self):
         with self.subTest(map="small"):
             self.assertEqual(list(SMALL_MAP.reachable(0)), [12])

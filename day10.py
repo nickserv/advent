@@ -11,17 +11,6 @@ class TopMap(Grid[int]):
     def trailheads(self):
         return (index for index, value in enumerate(self._items) if value == 0)
 
-    def neighbors(self, position: int):
-        width = len(self)
-        if position >= width:
-            yield position - width
-        if position % width != 0:
-            yield position - 1
-        if position % width != width - 1:
-            yield position + 1
-        if position < len(self._items) - width:
-            yield position + width
-
     def reachable(self, trailhead: int):
         visited = {trailhead}
         queue = deque([trailhead])

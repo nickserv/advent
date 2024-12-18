@@ -12,6 +12,11 @@ from utils import Point, get_input
 class ClampedPoint(Point):
     clamp: Point
 
+    @staticmethod
+    def parse_clamped(string: str, clamp: Point):
+        point = Point.parse(string)
+        return ClampedPoint(point.x, point.y, clamp)
+
     def __add__(self, other: Point):
         x = (self.x + other.x) % self.clamp.x
         y = (self.y + other.y) % self.clamp.y
@@ -22,11 +27,11 @@ class Robot:  # pylint: disable=too-few-public-methods
     position: ClampedPoint
 
     def __init__(self, string: str, clamp: Point):
-        match = re.fullmatch(r"p=(\d+),(\d+) v=(-?\d+),(-?\d+)", string)
+        match = re.fullmatch(r"p=(\d+,\d+) v=(-?\d+,-?\d+)", string)
         if not match:
             raise ValueError(repr(string))
-        self.position = ClampedPoint(int(match[1]), int(match[2]), clamp)
-        self.__velocity = Point(int(match[3]), int(match[4]))
+        self.position = ClampedPoint.parse_clamped(match[1], clamp)
+        self.__velocity = Point.parse(match[2])
 
     def move(self):
         self.position += self.__velocity
