@@ -54,31 +54,6 @@ class Grid[T]:
     def __init__(self, items: Iterable[T]):
         self._items = list(items)
 
-    def __eq__(self, other: object):
-        if isinstance(other, Grid):
-            return self._items == other._items  # type: ignore
-        return False
-
-    def __getitem__(self, key: Point | int):
-        match key:
-            case Point():
-                return self._items[self.index(key)]
-            case int(index):
-                return self._items[index]
-
-    def __setitem__(self, key: Point | int, value: T):
-        match key:
-            case Point():
-                self._items[self.index(key)] = value
-            case int(index):
-                self._items[index] = value
-
-    def __len__(self):
-        return int(sqrt(len(self._items)))
-
-    def __str__(self):
-        return self.visualize(set())
-
     def index(self, point: Point) -> int:
         "Convert the Point to an index in Grid's internal list"
         return len(self) * point.y + point.x
@@ -117,6 +92,31 @@ class Grid[T]:
             "".join("X" if point in path else str(self[point]) for point in row)
             for row in batched(self.points(), len(self))
         )
+
+    def __eq__(self, other: object):
+        if isinstance(other, Grid):
+            return self._items == other._items  # type: ignore
+        return False
+
+    def __getitem__(self, key: Point | int):
+        match key:
+            case Point():
+                return self._items[self.index(key)]
+            case int(index):
+                return self._items[index]
+
+    def __setitem__(self, key: Point | int, value: T):
+        match key:
+            case Point():
+                self._items[self.index(key)] = value
+            case int(index):
+                self._items[index] = value
+
+    def __len__(self):
+        return int(sqrt(len(self._items)))
+
+    def __str__(self):
+        return self.visualize(set())
 
 
 class StringGrid(Grid[str]):
