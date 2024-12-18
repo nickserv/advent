@@ -59,19 +59,19 @@ class Grid[T]:
         return self.visualize(set())
 
     def point(self, index: int):
-        "Convert the index to a Point in Grid"
+        """Convert the index to a Point in Grid"""
         return Point(index % len(self), index // len(self))
 
     def points(self):
-        "Get all valid Points in Grid in order"
+        """Get all valid Points in Grid in order"""
         return (Point(x, y) for y, x in product(range(len(self)), repeat=2))
 
     def valid(self, point: Point):
-        "Check if a Point is in Grid"
+        """Check if a Point is in Grid"""
         return 0 <= point.x < len(self) and 0 <= point.y < len(self)
 
     def visualize(self, path: set[Point]):
-        "Get a string representation, but with X replacing Points in the given path"
+        """Get a string representation, but with X replacing Points in the given path"""
         return "\n".join(
             "".join("X" if point in path else str(self[point]) for point in row)
             for row in batched(self.points(), len(self))
