@@ -9,7 +9,7 @@ class WordSearch(StringGrid):
         result = ""
 
         # Check bounds
-        while self.valid(current := point + i * direction):
+        while (current := point + i * direction) in self:
             result += self[current]
             i += 1
 
@@ -19,7 +19,7 @@ class WordSearch(StringGrid):
         return (
             point
             for direction in DIRECTIONS
-            for point in self.points()
+            for point in self
             if self.__extract(point, direction).startswith("XMAS")
         )
 

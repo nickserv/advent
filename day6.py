@@ -10,7 +10,7 @@ class Lab(StringGrid):
         point = self.start()
         path = {point}
 
-        while self.valid(point + direction):
+        while point + direction in self:
             if self[point + direction] == "#":
                 direction = next(it)
             else:

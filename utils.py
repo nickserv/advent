@@ -51,6 +51,11 @@ class Grid[T]:
 
     _items: list[T]
 
+    @staticmethod
+    def format_value(value: T):
+        """Converts a contained value to a string (preferably a single character)"""
+        return str(value)
+
     def __init__(self, items: Iterable[T]):
         self._items = list(items)
 
@@ -62,10 +67,6 @@ class Grid[T]:
         """Convert the index to a Point in Grid"""
         return Point(index % len(self), index // len(self))
 
-    def points(self):
-        """Get all valid Points in Grid in order"""
-        return (Point(x, y) for y, x in product(range(len(self)), repeat=2))
-
     @overload
     def neighbors(self, key: Point) -> Generator[Point]: ...
     @overload
@@ -76,22 +77,28 @@ class Grid[T]:
         match key:
             case Point():
                 for direction in STRAIGHTS:
-                    if self.valid(key + direction):
+                    if key + direction in self:
                         yield key + direction
             case int():
                 for point in self.neighbors(self.point(key)):
                     yield self.index(point)
 
-    def valid(self, point: Point):
-        """Check if a Point is in Grid"""
-        return 0 <= point.x < len(self) and 0 <= point.y < len(self)
-
     def visualize(self, path: set[Point]):
         """Get a string representation, but with X replacing Points in the given path"""
         return "\n".join(
-            "".join("X" if point in path else str(self[point]) for point in row)
-            for row in batched(self.points(), len(self))
+            "".join(
+                "X" if point in path else self.format_value(self[point])
+                for point in row
+            )
+            for row in batched(self, len(self))
         )
+
+    def __contains__(self, key: Point | int):
+        match key:
+            case Point(x, y):
+                return 0 <= x < len(self) and 0 <= y < len(self)
+            case index:
+                return 0 <= index < len(self._items)
 
     def __eq__(self, other: object):
         if isinstance(other, Grid):
@@ -112,6 +119,9 @@ class Grid[T]:
             case int(index):
                 self._items[index] = value
 
+    def __iter__(self):
+        return (Point(x, y) for y, x in product(range(len(self)), repeat=2))
+
     def __len__(self):
         return int(sqrt(len(self._items)))
 
@@ -121,6 +131,10 @@ class Grid[T]:
 
 class StringGrid(Grid[str]):
     """A Grid of characters from an ASCII art string"""
+
+    @staticmethod
+    def format_value(value: str):
+        return value
 
     def __init__(self, string: str):
         super().__init__(char for char in string if char != "\n")
