@@ -1,20 +1,16 @@
 from itertools import cycle, repeat
 from typing import Iterable, Optional
 
-from utils import get_input
+from utils import digits, get_input
 
 type Blocks = list[Optional[int]]
 type CompactBlocks = list[int]
 
 
-def ints(string: str):
-    return (int(char) for char in string)
-
-
-def expand(ints: Iterable[int]) -> Blocks:
+def expand(digits: Iterable[int]) -> Blocks:
     index = 0
     result: Blocks = []
-    for element, file in zip(ints, cycle((True, False))):
+    for element, file in zip(digits, cycle((True, False))):
         if file:
             value = index
             index += 1
@@ -57,5 +53,5 @@ def checksum(blocks: CompactBlocks):
 
 
 if __name__ == "__main__":
-    disk_map = ints(get_input(9).strip())
+    disk_map = digits(get_input(9).strip())
     print(checksum(compact(expand(disk_map))))

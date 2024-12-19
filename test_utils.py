@@ -1,6 +1,6 @@
 import unittest
 
-from utils import Grid, Point, StringGrid
+from utils import Grid, Point, StringGrid, digits
 
 
 class TestPoint(unittest.TestCase):
@@ -104,3 +104,8 @@ class TestGrid(unittest.TestCase):
 class TestStringGrid(unittest.TestCase):
     def test_new(self):
         self.assertEqual(StringGrid("ab\ncd"), Grid(iter("abcd")))
+
+
+class TestUtils(unittest.TestCase):
+    def test_digits(self):
+        self.assertEqual(list(digits("123")), [1, 2, 3])

@@ -143,6 +143,11 @@ class StringGrid(Grid[str]):
         super().__init__(char for char in string if char != "\n")
 
 
+def digits(string: str):
+    """Generate digits from string"""
+    return (int(char) for char in string)
+
+
 def get_input(day_or_string: int | str):
     """Read an input from a file or inline string without extra whitespace"""
     match day_or_string:
