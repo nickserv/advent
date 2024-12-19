@@ -17,7 +17,7 @@ class Machine:
     y: np.uint
 
     @classmethod
-    def many(cls, string: str) -> Generator[Self]:
+    def parse_many(cls, string: str) -> Generator[Self]:
         for match in re.finditer(
             r"""
             Button\ A:\ X\+(?P<ax>\d+),\ Y\+(?P<ay>\d+)\n
@@ -48,5 +48,5 @@ def total_cost(machines: Iterable[Machine]):
 
 
 if __name__ == "__main__":
-    machines = tuple(Machine.many(get_input(13)))
+    machines = tuple(Machine.parse_many(get_input(13)))
     print(total_cost(machines))

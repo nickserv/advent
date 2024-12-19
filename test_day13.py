@@ -4,7 +4,7 @@ from day13 import Machine, total_cost
 from utils import get_input
 
 MACHINES = tuple(
-    Machine.many(
+    Machine.parse_many(
         get_input(
             """
             Button A: X+94, Y+34
