@@ -28,6 +28,9 @@ class Point:
     def __add__(self, other: Self):
         return Point(self.x + other.x, self.y + other.y)
 
+    def __mod__(self, other: Self):
+        return Point(self.x % other.x, self.y % other.y)
+
     def __mul__(self, other: int):
         return Point(self.x * other, self.y * other)
 

@@ -18,9 +18,13 @@ class ClampedPoint(Point):
         return ClampedPoint(point.x, point.y, clamp)
 
     def __add__(self, other: Point):
-        x = (self.x + other.x) % self.clamp.x
-        y = (self.y + other.y) % self.clamp.y
-        return ClampedPoint(x, y, self.clamp)
+        other = self.__class__(other.x, other.y, self.clamp)
+        point = super().__add__(other) % self.clamp
+        return ClampedPoint(point.x, point.y, self.clamp)
+
+    def __mul__(self, other: int):
+        point = super().__mul__(other) % self.clamp
+        return ClampedPoint(point.x, point.y, self.clamp)
 
 
 class Robot:  # pylint: disable=too-few-public-methods

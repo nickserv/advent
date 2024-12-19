@@ -13,6 +13,9 @@ class TestPoint(unittest.TestCase):
     def test_add(self):
         self.assertEqual(Point(1, 2) + Point(3, 4), Point(4, 6))
 
+    def test_mod(self):
+        self.assertEqual(Point(2, 3) % Point(2, 2), Point(0, 1))
+
     def test_mul(self):
         self.assertEqual(Point(1, 2) * 2, Point(2, 4))
 
