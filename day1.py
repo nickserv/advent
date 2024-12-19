@@ -1,10 +1,10 @@
 from collections import Counter
 
-from utils import get_input
+from utils import get_input, parse_lines
 
 
 def parse_lists(string: str) -> tuple[list[int], list[int]]:
-    return tuple(zip(*(map(int, line.split()) for line in string.splitlines())))
+    return tuple(zip(*parse_lines(lambda line: (int(c) for c in line.split()), string)))
 
 
 def total_distance(left: list[int], right: list[int]):

@@ -5,7 +5,7 @@ from functools import reduce
 
 from PIL import Image
 
-from utils import Point, get_input
+from utils import Point, get_input, parse_lines
 
 
 @dataclass
@@ -43,7 +43,7 @@ class Robot:  # pylint: disable=too-few-public-methods
 
 class Space:
     def __init__(self, string: str, clamp: Point):
-        self.robots = tuple(Robot(line, clamp) for line in string.splitlines())
+        self.robots = tuple(parse_lines(lambda line: Robot(line, clamp), string))
         self.clamp = clamp
 
     def __str__(self):

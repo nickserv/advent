@@ -1,7 +1,7 @@
 from itertools import pairwise
 from typing import Sequence
 
-from utils import get_input
+from utils import get_input, parse_lines
 
 type Rule = tuple[int, int]
 
@@ -36,8 +36,8 @@ def parse(string: str):
     # instances, and composability isn't a concern since the implementation and test
     # files only have one set of rules each.
     global _rules  # pylint: disable=global-statement
-    _rules = {parse_rule(line) for line in top.splitlines()}
-    return [parse_update(line) for line in bottom.splitlines()]
+    _rules = set(parse_lines(parse_rule, top))
+    return parse_lines(parse_update, bottom)
 
 
 def middle[T](items: Sequence[T]):

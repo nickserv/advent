@@ -4,7 +4,7 @@ from itertools import batched, product
 from math import sqrt
 from pathlib import Path
 from textwrap import dedent
-from typing import Generator, Iterable, Self, overload
+from typing import Callable, Generator, Iterable, Self, overload
 
 
 @dataclass(unsafe_hash=True)
@@ -23,7 +23,7 @@ class Point:
     @staticmethod
     def parse_many(string: str):
         """Parses a string of "x,y" lines into a list of Points"""
-        return [Point.parse(line) for line in string.splitlines()]
+        return parse_lines(Point.parse, string)
 
     def __add__(self, other: Self):
         return Point(self.x + other.x, self.y + other.y)
@@ -150,3 +150,8 @@ def get_input(day_or_string: int | str):
             return Path(f"resources/{day}.txt").read_text("utf8")
         case str(string):
             return dedent(string).strip()
+
+
+def parse_lines[T](func: Callable[[str], T], string: str):
+    """Parse each line of string with func and return a list of the results"""
+    return [func(line) for line in string.splitlines()]

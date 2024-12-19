@@ -1,11 +1,11 @@
 from itertools import pairwise
 from typing import Callable
 
-from utils import get_input
+from utils import get_input, parse_lines
 
 
 def parse_lists(string: str):
-    return [[int(x) for x in line.split()] for line in string.splitlines()]
+    return parse_lines(lambda line: [int(c) for c in line.split()], string)
 
 
 def safe(list2: list[int]):

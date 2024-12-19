@@ -3,7 +3,7 @@ from math import floor, log10
 from operator import add, mul
 from typing import Callable, Generator
 
-from utils import get_input
+from utils import get_input, parse_lines
 
 type Equation = tuple[int, list[int]]
 
@@ -14,7 +14,7 @@ def parse_equation(string: str) -> Equation:
 
 
 def parse_equations(string: str):
-    return [parse_equation(line) for line in string.splitlines()]
+    return parse_lines(parse_equation, string)
 
 
 type BinaryOperation = Callable[[int, int], int]
