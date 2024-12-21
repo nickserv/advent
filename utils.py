@@ -106,7 +106,7 @@ class Grid[T]:
 
     def __eq__(self, other: object):
         if isinstance(other, Grid):
-            return self._items == other._items  # type:ignore
+            return self._items == other._items  # type:ignore[reportUnknownMemberType]
         return False
 
     def __getitem__(self, key: Point | int):
