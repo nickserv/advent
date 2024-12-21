@@ -49,11 +49,12 @@ DIRECTIONS = STRAIGHTS + DIAGONALS
 
 class Grid[T]:
     """
-    A square grid of items internally flattened as a list, with utilities for Point-
-    based operations
+    A grid of items internally flattened as a list, with utilities for Point-based
+    operations
     """
 
     _items: list[T]
+    _width: int
 
     @staticmethod
     def format_value(value: T):
@@ -62,14 +63,15 @@ class Grid[T]:
 
     def __init__(self, items: Iterable[T]):
         self._items = list(items)
+        self._width = int(sqrt(len(self._items)))
 
     def index(self, point: Point) -> int:
         "Convert the Point to an index in Grid's internal list"
-        return len(self) * point.y + point.x
+        return self._width * point.y + point.x
 
     def point(self, index: int):
         """Convert the index to a Point in Grid"""
-        return Point(index % len(self), index // len(self))
+        return Point(index % self._width, index // self._width)
 
     @overload
     def neighbors(self, key: Point) -> Generator[Point]: ...
@@ -94,13 +96,13 @@ class Grid[T]:
                 "X" if point in path else self.format_value(self[point])
                 for point in row
             )
-            for row in batched(self, len(self))
+            for row in batched(self, self._width)
         )
 
     def __contains__(self, key: Point | int):
         match key:
             case Point(x, y):
-                return 0 <= x < len(self) and 0 <= y < len(self)
+                return 0 <= x < self._width and 0 <= y < len(self._items) // self._width
             case index:
                 return 0 <= index < len(self._items)
 
@@ -124,10 +126,15 @@ class Grid[T]:
                 self._items[index] = value
 
     def __iter__(self):
-        return (Point(x, y) for y, x in product(range(len(self)), repeat=2))
+        return (
+            Point(x, y)
+            for y, x in product(
+                range(len(self._items) // self._width), range(self._width)
+            )
+        )
 
     def __len__(self):
-        return int(sqrt(len(self._items)))
+        return self._width
 
     def __str__(self):
         return self.visualize(set())
@@ -142,6 +149,7 @@ class StringGrid(Grid[str]):
 
     def __init__(self, string: str):
         super().__init__(char for char in string if char != "\n")
+        self._width = string.index("\n")
 
 
 def digits(string: str):

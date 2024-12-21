@@ -18,7 +18,7 @@ class Space(Grid[bool]):
 
     def shortest_path(self):
         origin = Point(0, 0)
-        destination = Point(len(self) - 1, len(self) - 1)
+        destination = Point(self._width - 1, self._width - 1)
         visited = {origin}
         queue = deque([origin])
         dist = {origin: 0}
