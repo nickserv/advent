@@ -1,4 +1,4 @@
-# pylint: enable=missing-class-docstring,missing-function-docstring
+# pylint:enable=missing-class-docstring,missing-function-docstring
 from collections.abc import Callable, Generator, Iterable
 from dataclasses import dataclass
 from itertools import batched, product
@@ -106,7 +106,7 @@ class Grid[T]:
 
     def __eq__(self, other: object):
         if isinstance(other, Grid):
-            return self._items == other._items  # type: ignore
+            return self._items == other._items  # type:ignore
         return False
 
     def __getitem__(self, key: Point | int):

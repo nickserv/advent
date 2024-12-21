@@ -35,7 +35,7 @@ def parse(string: str):
     # A global is basically the only convenient way to make rules available to all
     # instances, and composability isn't a concern since the implementation and test
     # files only have one set of rules each.
-    global _rules  # pylint: disable=global-statement
+    global _rules  # pylint:disable=global-statement
     _rules = set(parse_lines(parse_rule, top))
     return parse_lines(parse_update, bottom)
 

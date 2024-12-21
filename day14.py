@@ -27,7 +27,7 @@ class ClampedPoint(Point):
         return ClampedPoint(point.x, point.y, self.clamp)
 
 
-class Robot:  # pylint: disable=too-few-public-methods
+class Robot:  # pylint:disable=too-few-public-methods
     position: ClampedPoint
 
     def __init__(self, string: str, clamp: Point):
@@ -58,7 +58,7 @@ class Space:
             grid[robot.position.y][robot.position.x] = True
         data = [255 if item else 0 for row in grid for item in row]
         image = Image.new("L", (self.clamp.x, self.clamp.y))
-        image.putdata(data)  # type: ignore
+        image.putdata(data)  # type:ignore
         return image
 
     def move(self, times: int = 1):
