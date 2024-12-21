@@ -13,3 +13,9 @@ max-line-length = 88
 [tool.pyright]
 deprecateTypingAliases = true
 typeCheckingMode = "strict"
+reportCallInDefaultInitializer = "error"
+reportImplicitStringConcatenation = "error"
+reportImportCycles = "error"
+reportPropertyTypeMismatch = "error"
+reportShadowedImports = "error"
+reportUnnecessaryTypeIgnoreComment = "error"

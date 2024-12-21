@@ -5,7 +5,13 @@ from utils import Grid, Point, get_input
 
 
 class Space(Grid[bool]):
-    def __init__(self, size: int, points: Iterable[Point] = iter(())):
+    def __init__(
+        self,
+        size: int,
+        points: Iterable[Point] = iter(
+            ()
+        ),  # type:ignore[reportCallInDefaultInitializer]
+    ):
         super().__init__([False] * size**2)
         for point in points:
             self[point] = True
