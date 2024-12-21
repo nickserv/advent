@@ -1,6 +1,7 @@
 import re
+from collections.abc import Generator, Iterable
 from dataclasses import dataclass
-from typing import Generator, Iterable, Self
+from typing import Self
 
 import numpy as np
 

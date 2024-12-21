@@ -1,7 +1,7 @@
+from collections.abc import Callable, Iterable
 from functools import cache
 from itertools import chain
 from math import floor, log10
-from typing import Callable, Iterable
 
 from utils import get_input
 

@@ -1,5 +1,5 @@
 from collections import deque
-from typing import Iterable
+from collections.abc import Iterable
 
 from utils import Grid, Point, get_input
 

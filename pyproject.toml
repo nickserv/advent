@@ -11,4 +11,5 @@ disable = [
 max-line-length = 88
 
 [tool.pyright]
+deprecateTypingAliases = true
 typeCheckingMode = "strict"

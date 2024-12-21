@@ -1,10 +1,11 @@
 # pylint: enable=missing-class-docstring,missing-function-docstring
+from collections.abc import Callable, Generator, Iterable
 from dataclasses import dataclass
 from itertools import batched, product
 from math import sqrt
 from pathlib import Path
 from textwrap import dedent
-from typing import Callable, Generator, Iterable, Self, overload
+from typing import Self, overload
 
 
 @dataclass(unsafe_hash=True)

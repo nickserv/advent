@@ -1,9 +1,9 @@
+from collections.abc import Iterable
 from itertools import cycle, repeat
-from typing import Iterable, Optional
 
 from utils import digits, get_input
 
-type Blocks = list[Optional[int]]
+type Blocks = list[int | None]
 type CompactBlocks = list[int]
 
 

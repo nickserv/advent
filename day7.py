@@ -1,7 +1,7 @@
+from collections.abc import Callable, Generator
 from itertools import chain
 from math import floor, log10
 from operator import add, mul
-from typing import Callable, Generator
 
 from utils import get_input, parse_lines
 

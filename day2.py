@@ -1,5 +1,5 @@
+from collections.abc import Callable
 from itertools import pairwise
-from typing import Callable
 
 from utils import get_input, parse_lines
 

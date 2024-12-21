@@ -1,5 +1,5 @@
+from collections.abc import Sequence
 from itertools import pairwise
-from typing import Sequence
 
 from utils import get_input, parse_lines
 
