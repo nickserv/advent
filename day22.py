@@ -4,7 +4,8 @@ from utils import get_input
 
 
 def mix_prune(secret: int, value: int) -> int:
-    return (secret ^ value) % 16777216
+    # 16777216 is 2**24, equivalent to a bitmask of 0xFFFFFF
+    return secret ^ value & 0xFFFFFF
 
 
 def next_secret(secret: int):
