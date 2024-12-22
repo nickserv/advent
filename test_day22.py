@@ -22,6 +22,7 @@ class TestDay22(unittest.TestCase):
                     5908254,
                 ],
             )
+
         with self.subTest("end"):
             self.assertEqual(secrets(1)[-1], 8685429)
             self.assertEqual(secrets(10)[-1], 4700978)

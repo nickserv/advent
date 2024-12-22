@@ -56,6 +56,7 @@ class TestGrid(unittest.TestCase):
             self.assertCountEqual(
                 list(GRID.neighbors(Point(1, 1))), [Point(0, 1), Point(1, 0)]
             )
+
         with self.subTest(key=int):
             self.assertCountEqual(list(GRID.neighbors(0)), [1, 2])
             self.assertCountEqual(list(GRID.neighbors(1)), [0, 3])
@@ -83,6 +84,7 @@ class TestGrid(unittest.TestCase):
             self.assertEqual(GRID[Point(1, 0)], 1)
             self.assertEqual(GRID[Point(0, 1)], 2)
             self.assertEqual(GRID[Point(1, 1)], 3)
+
         with self.subTest(key=int):
             self.assertEqual(GRID[0], 0)
             self.assertEqual(GRID[1], 1)
