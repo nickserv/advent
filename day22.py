@@ -8,10 +8,10 @@ def mix_prune(secret: int, value: int) -> int:
 
 
 def next_secret(secret: int):
-    first = mix_prune(secret, secret * 64)
-    second = mix_prune(first, first // 32)
-    third = mix_prune(second, second * 2048)
-    return third
+    secret = mix_prune(secret, secret * 64)
+    secret = mix_prune(secret, secret // 32)
+    secret = mix_prune(secret, secret * 2048)
+    return secret
 
 
 def iter_secrets(secret: int) -> Iterator[int]:
