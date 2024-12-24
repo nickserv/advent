@@ -1,5 +1,7 @@
 black
+networkx
 numpy
 pillow
 pylint
 pyright
+types-networkx
