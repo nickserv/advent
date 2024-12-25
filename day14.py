@@ -90,4 +90,4 @@ if __name__ == "__main__":
     space = Space(get_input(14), Point(101, 103))
     for i in range(1, 10_000):  # The answer is below 10,000
         space.move()
-        space.image().save(f"output/{i}.png")
+        space.image().save(f"day14_images/{i}.png")
