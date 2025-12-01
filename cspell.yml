@@ -1,0 +1,5 @@
+ignorePaths:
+  - resources
+allowCompoundWords: true
+dictionaries:
+  - python
