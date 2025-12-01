@@ -7,11 +7,11 @@ def parse_rotations(string: str):
     )
 
 
-def zeros(list: list[int]):
+def zeros(rotations: list[int]):
     current = 50
     zeros = 0
-    for n in list:
-        current = (current + n) % 100
+    for rotation in rotations:
+        current = (current + rotation) % 100
         if current == 0:
             zeros += 1
     return zeros
