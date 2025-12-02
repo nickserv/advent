@@ -12,19 +12,18 @@ def parse_id_ranges(id_ranges: str):
     return [parse_id_range(id_range) for id_range in id_ranges.split(",")]
 
 
-def is_valid_id(id: int, advanced: bool = False):
-    id_string = str(id)
+def is_valid_id(id_int: int, advanced: bool = False):
+    id_string = str(id_int)
     halfway = len(id_string) // 2
     if advanced:
         return not any(
             len(set(batched(id_string, batch_length))) == 1
             for batch_length in range(1, halfway + 1)
         )
-    elif len(id_string) % 1:
+    if len(id_string) % 1:
         return True
-    else:
-        left, right = id_string[:halfway], id_string[halfway:]
-        return left != right
+    left, right = id_string[:halfway], id_string[halfway:]
+    return left != right
 
 
 def invalid_ids(id_ranges: list[range], advanced: bool = False):
