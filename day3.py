@@ -1,8 +1,8 @@
+from collections.abc import Iterable
 from functools import reduce
 from itertools import combinations
-from collections.abc import Iterable
-from utils import get_input
-from utils import parse_lines
+
+from utils import get_input, parse_lines
 
 
 def parse_bank(string: str):

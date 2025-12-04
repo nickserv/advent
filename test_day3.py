@@ -1,4 +1,5 @@
 import unittest
+
 from day3 import joltage, parse_bank, total_joltage
 from utils import get_input, parse_lines
 
