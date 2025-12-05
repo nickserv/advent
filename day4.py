@@ -147,7 +147,7 @@ class PaperGrid(Grid[bool]):
     def __init__(self, string: str):
         super().__init__(char == "@" for char in string if char != "\n")
 
-    def accessible(self):
+    def accessible(self) -> Generator[Point]:
         for point in self:
             if (
                 self[point]
@@ -155,7 +155,16 @@ class PaperGrid(Grid[bool]):
             ):
                 yield point
 
+    def removable(self) -> Generator[Point]:
+        accessible = list(self.accessible())
+        if accessible:
+            for point in accessible:
+                self[point] = False
+                yield point
+            yield from self.removable()
+
 
 if __name__ == "__main__":
     grid = PaperGrid(get_input(4))
     print(len(list(grid.accessible())))
+    print(len(list(grid.removable())))

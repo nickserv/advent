@@ -24,3 +24,6 @@ GRID = PaperGrid(
 class TestPaperGrid(unittest.TestCase):
     def test_accessible(self):
         self.assertEqual(len(list(GRID.accessible())), 13)
+
+    def test_removable(self):
+        self.assertEqual(len(list(GRID.removable())), 43)
