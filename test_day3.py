@@ -16,7 +16,7 @@ BANKS = parse_lines(
 )
 
 
-class TestDay1(unittest.TestCase):
+class TestDay3(unittest.TestCase):
     def test_joltage(self):
         self.assertEqual(joltage(BANKS[0], 2), 98)
         self.assertEqual(joltage(BANKS[1], 2), 89)

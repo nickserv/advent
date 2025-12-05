@@ -14,7 +14,7 @@ ID_RANGES = parse_id_ranges(
 )
 
 
-class TestDay1(unittest.TestCase):
+class TestDay2(unittest.TestCase):
     def test_invalid_ids(self):
         self.assertEqual(sum(invalid_ids(ID_RANGES)), 1227775554)
 
