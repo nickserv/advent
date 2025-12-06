@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from itertools import batched, chain
 
 from utils import read_input
@@ -26,7 +27,7 @@ def is_valid_id(id_int: int, advanced: bool = False):
     return left != right
 
 
-def invalid_ids(id_ranges: list[range], advanced: bool = False):
+def invalid_ids(id_ranges: Iterable[range], advanced: bool = False):
     return set(
         id for id in chain.from_iterable(id_ranges) if not is_valid_id(id, advanced)
     )
