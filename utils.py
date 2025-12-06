@@ -11,7 +11,7 @@ def clean_string(string: str):
 
 def parse_lines[T](func: Callable[[str], T], string: str):
     """Parse each line of string with func and return a list of the results"""
-    return [func(line) for line in string.splitlines()]
+    return list(map(func, string.splitlines()))
 
 
 def read_input(day: int):

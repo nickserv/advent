@@ -9,7 +9,7 @@ def parse_id_range(id_range: str):
 
 
 def parse_id_ranges(id_ranges: str):
-    return [parse_id_range(id_range) for id_range in id_ranges.split(",")]
+    return list(map(parse_id_range, id_ranges.split(",")))
 
 
 def is_valid_id(id_int: int, advanced: bool = False):
