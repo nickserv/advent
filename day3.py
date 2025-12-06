@@ -5,10 +5,6 @@ from itertools import combinations
 from utils import parse_lines, read_input
 
 
-def parse_banks(string: str):
-    return parse_lines(lambda string: tuple(map(int, string)), string)
-
-
 def digits_to_int(digits: Iterable[int]):
     return reduce(lambda x, y: x * 10 + y, digits)
 
@@ -19,6 +15,10 @@ def joltage(bank: Iterable[int], r: int):
 
 def total_joltage(banks: Iterable[Iterable[int]], r: int):
     return sum(joltage(bank, r) for bank in banks)
+
+
+def parse_banks(string: str):
+    return parse_lines(lambda string: tuple(map(int, string)), string)
 
 
 if __name__ == "__main__":

@@ -4,15 +4,6 @@ from itertools import batched, chain
 from utils import read_input
 
 
-def parse_id_range(id_range: str):
-    left, right = id_range.split("-")
-    return range(int(left), int(right) + 1)
-
-
-def parse_id_ranges(id_ranges: str):
-    return list(map(parse_id_range, id_ranges.split(",")))
-
-
 def is_valid_id(id_int: int, advanced: bool = False):
     id_string = str(id_int)
     halfway = len(id_string) // 2
@@ -31,6 +22,15 @@ def invalid_ids(id_ranges: Iterable[range], advanced: bool = False):
     return set(
         id for id in chain.from_iterable(id_ranges) if not is_valid_id(id, advanced)
     )
+
+
+def parse_id_range(id_range: str):
+    left, right = id_range.split("-")
+    return range(int(left), int(right) + 1)
+
+
+def parse_id_ranges(id_ranges: str):
+    return list(map(parse_id_range, id_ranges.split(",")))
 
 
 if __name__ == "__main__":
