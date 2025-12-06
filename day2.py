@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from itertools import batched, chain
 
-from utils import read_input
+from utils import parse_id_range, read_input
 
 
 def is_valid_id(id_int: int, advanced: bool = False):
@@ -24,13 +24,8 @@ def invalid_ids(id_ranges: Iterable[range], advanced: bool = False):
     )
 
 
-def parse_id_range(id_range: str):
-    left, right = id_range.split("-")
-    return range(int(left), int(right) + 1)
-
-
-def parse_id_ranges(id_ranges: str):
-    return list(map(parse_id_range, id_ranges.split(",")))
+def parse_id_ranges(string: str):
+    return list(map(parse_id_range, string.split(",")))
 
 
 if __name__ == "__main__":

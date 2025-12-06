@@ -9,6 +9,12 @@ def clean_string(string: str):
     return dedent(string).strip()
 
 
+def parse_id_range(string: str):
+    """Parse a string containing x-y into an inclusive range from x to y"""
+    left, _, right = string.partition("-")
+    return range(int(left), int(right) + 1)
+
+
 def parse_lines[T](func: Callable[[str], T], string: str):
     """Parse each line of string with func and return a list of the results"""
     return list(map(func, string.splitlines()))
