@@ -5,8 +5,8 @@ from itertools import combinations
 from utils import parse_lines, read_input
 
 
-def parse_bank(string: str):
-    return list(map(int, string))
+def parse_banks(string: str):
+    return parse_lines(lambda string: tuple(map(int, string)), string)
 
 
 def digits_to_int(digits: Iterable[int]):
@@ -22,6 +22,6 @@ def total_joltage(banks: Iterable[Iterable[int]], r: int):
 
 
 if __name__ == "__main__":
-    banks = parse_lines(parse_bank, read_input(3))
+    banks = parse_banks(read_input(3))
     print(total_joltage(banks, 2))
     print(total_joltage(banks, 12))
