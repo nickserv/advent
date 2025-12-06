@@ -1,10 +1,10 @@
 import unittest
 
 from day1 import parse_rotations, zeros
-from utils import get_input
+from utils import clean_string
 
 LIST = parse_rotations(
-    get_input(
+    clean_string(
         """
         L68
         L30

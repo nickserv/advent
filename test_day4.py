@@ -1,10 +1,10 @@
 import unittest
 
 from day4 import PaperGrid
-from utils import get_input
+from utils import clean_string
 
 GRID = PaperGrid(
-    get_input(
+    clean_string(
         """
         ..@@.@@@@.
         @@@.@.@.@@

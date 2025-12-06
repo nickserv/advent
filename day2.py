@@ -1,6 +1,6 @@
 from itertools import batched, chain
 
-from utils import get_input
+from utils import read_input
 
 
 def parse_id_range(id_range: str):
@@ -33,6 +33,6 @@ def invalid_ids(id_ranges: list[range], advanced: bool = False):
 
 
 if __name__ == "__main__":
-    id_ranges = parse_id_ranges(get_input(2))
+    id_ranges = parse_id_ranges(read_input(2))
     print(sum(invalid_ids(id_ranges)))
     print(sum(invalid_ids(id_ranges, True)))

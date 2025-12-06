@@ -1,4 +1,4 @@
-from utils import get_input, parse_lines
+from utils import parse_lines, read_input
 
 
 def parse_rotations(string: str):
@@ -18,4 +18,4 @@ def zeros(rotations: list[int]):
 
 
 if __name__ == "__main__":
-    print(zeros(parse_rotations(get_input(1))))
+    print(zeros(parse_rotations(read_input(1))))

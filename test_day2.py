@@ -1,10 +1,10 @@
 import unittest
 
 from day2 import invalid_ids, parse_id_ranges
-from utils import get_input
+from utils import clean_string
 
 ID_RANGES = parse_id_ranges(
-    get_input(
+    clean_string(
         """
         11-22,95-115,998-1012,1188511880-1188511890,222220-222224,
         1698522-1698528,446443-446449,38593856-38593862,565653-565659,

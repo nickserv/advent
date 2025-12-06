@@ -1,11 +1,11 @@
 import unittest
 
 from day3 import joltage, parse_bank, total_joltage
-from utils import get_input, parse_lines
+from utils import clean_string, parse_lines
 
 BANKS = parse_lines(
     parse_bank,
-    get_input(
+    clean_string(
         """
         987654321111111
         811111111111119

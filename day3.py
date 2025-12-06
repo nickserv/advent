@@ -2,7 +2,7 @@ from collections.abc import Iterable
 from functools import reduce
 from itertools import combinations
 
-from utils import get_input, parse_lines
+from utils import parse_lines, read_input
 
 
 def parse_bank(string: str):
@@ -22,6 +22,6 @@ def total_joltage(banks: Iterable[Iterable[int]], r: int):
 
 
 if __name__ == "__main__":
-    banks = parse_lines(parse_bank, get_input(3))
+    banks = parse_lines(parse_bank, read_input(3))
     print(total_joltage(banks, 2))
     print(total_joltage(banks, 12))

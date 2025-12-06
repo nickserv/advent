@@ -4,7 +4,7 @@ from itertools import batched, product
 from math import sqrt
 from typing import Self, overload
 
-from utils import get_input, parse_lines
+from utils import parse_lines, read_input
 
 
 @dataclass(unsafe_hash=True)
@@ -165,6 +165,6 @@ class PaperGrid(Grid[bool]):
 
 
 if __name__ == "__main__":
-    grid = PaperGrid(get_input(4))
+    grid = PaperGrid(read_input(4))
     print(len(list(grid.accessible())))
     print(len(list(grid.removable())))
