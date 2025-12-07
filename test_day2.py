@@ -19,4 +19,4 @@ class TestDay2(unittest.TestCase):
         self.assertEqual(sum(invalid_ids(ID_RANGES)), 1227775554)
 
     def test_invalid_ids_advanced(self):
-        self.assertEqual(sum(invalid_ids(ID_RANGES, True)), 4174379265)
+        self.assertEqual(sum(invalid_ids(ID_RANGES, advanced=True)), 4174379265)

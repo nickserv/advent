@@ -15,7 +15,10 @@ class PaperGrid(Grid[bool]):
         for point in self:
             if (
                 self[point]
-                and sum(self[neighbor] for neighbor in self.neighbors(point, True)) < 4
+                and sum(
+                    self[neighbor] for neighbor in self.neighbors(point, diagonal=True)
+                )
+                < 4
             ):
                 yield point
 

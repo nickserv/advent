@@ -95,12 +95,12 @@ class Grid[T]:
         return Point(index % self._width, index // self._width)
 
     @overload
-    def neighbors(self, key: Point, diagonal: bool = False) -> Generator[Point]: ...
+    def neighbors(self, key: Point, *, diagonal: bool = False) -> Generator[Point]: ...
     @overload
-    def neighbors(self, key: int, diagonal: bool = False) -> Generator[int]: ...
+    def neighbors(self, key: int, *, diagonal: bool = False) -> Generator[int]: ...
 
     def neighbors(
-        self, key: Point | int, diagonal: bool = False
+        self, key: Point | int, *, diagonal: bool = False
     ) -> Generator[Point | int]:
         """
         Get all valid neighbors of a Point or index in Grid (optionally including

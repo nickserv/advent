@@ -4,7 +4,7 @@ from itertools import batched, chain
 from utils import parse_id_range, read_input
 
 
-def is_valid_id(id_int: int, advanced: bool = False):
+def is_valid_id(id_int: int, *, advanced: bool = False):
     id_string = str(id_int)
     halfway = len(id_string) // 2
     if advanced:
@@ -18,9 +18,11 @@ def is_valid_id(id_int: int, advanced: bool = False):
     return left != right
 
 
-def invalid_ids(id_ranges: Iterable[range], advanced: bool = False):
+def invalid_ids(id_ranges: Iterable[range], *, advanced: bool = False):
     return set(
-        id for id in chain.from_iterable(id_ranges) if not is_valid_id(id, advanced)
+        id
+        for id in chain.from_iterable(id_ranges)
+        if not is_valid_id(id, advanced=advanced)
     )
 
 
@@ -31,4 +33,4 @@ def parse_id_ranges(string: str):
 if __name__ == "__main__":
     id_ranges = parse_id_ranges(read_input(2))
     print(sum(invalid_ids(id_ranges)))
-    print(sum(invalid_ids(id_ranges, True)))
+    print(sum(invalid_ids(id_ranges, advanced=True)))
