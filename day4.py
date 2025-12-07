@@ -1,6 +1,6 @@
 from collections.abc import Generator
 
-from utils import DIRECTIONS, Grid, Point, overload, read_input
+from utils import Grid, Point, read_input
 
 
 class PaperGrid(Grid[bool]):
@@ -15,25 +15,9 @@ class PaperGrid(Grid[bool]):
         for point in self:
             if (
                 self[point]
-                and sum(self[neighbor] for neighbor in self.neighbors(point)) < 4
+                and sum(self[neighbor] for neighbor in self.neighbors(point, True)) < 4
             ):
                 yield point
-
-    @overload
-    def neighbors(self, key: Point) -> Generator[Point]: ...
-    @overload
-    def neighbors(self, key: int) -> Generator[int]: ...
-
-    def neighbors(self, key: Point | int) -> Generator[Point | int]:
-        """Get all valid neighbors of a Point or index in Grid"""
-        match key:
-            case Point():
-                for direction in DIRECTIONS:
-                    if key + direction in self:
-                        yield key + direction
-            case int():
-                for point in self.neighbors(self.point(key)):
-                    yield self.index(point)
 
     def removable(self) -> Generator[Point]:
         accessible = list(self.accessible())
