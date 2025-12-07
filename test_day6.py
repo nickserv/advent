@@ -15,6 +15,6 @@ WORKSHEET = parse_worksheet(
 )
 
 
-class TestDay5(unittest.TestCase):
+class TestDay6(unittest.TestCase):
     def test_solve_worksheet(self):
         self.assertEqual(solve_worksheet(WORKSHEET), 4277556)
