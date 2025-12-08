@@ -63,17 +63,17 @@ class Point:
         return f"{self.x},{self.y}"
 
 
-STRAIGHTS = [Point(0, -1), Point(1, 0), Point(0, 1), Point(-1, 0)]
-DIAGONALS = [Point(1, 1), Point(-1, 1), Point(1, -1), Point(-1, -1)]
-DIRECTIONS = STRAIGHTS + DIAGONALS
-
-
 class Grid[T]:
     """
     A grid of items internally flattened as a list, with utilities for Point-based
     operations
     """
 
+    STRAIGHTS = [Point(0, -1), Point(1, 0), Point(0, 1), Point(-1, 0)]
+    DIAGONALS = [Point(1, 1), Point(-1, 1), Point(1, -1), Point(-1, -1)]
+    DIRECTIONS: list[Point] = STRAIGHTS + DIAGONALS
+
+    __slots__ = ("_items", "_width")
     _items: list[T]
     _width: int
 
@@ -108,7 +108,7 @@ class Grid[T]:
         """
         match key:
             case Point():
-                for direction in DIRECTIONS if diagonal else STRAIGHTS:
+                for direction in self.DIRECTIONS if diagonal else self.STRAIGHTS:
                     if key + direction in self:
                         yield key + direction
             case int():
@@ -129,8 +129,8 @@ class Grid[T]:
         match key:
             case Point(x, y):
                 return 0 <= x < self._width and 0 <= y < len(self._items) // self._width
-            case index:
-                return 0 <= index < len(self._items)
+            case int():
+                return 0 <= key < len(self._items)
 
     def __eq__(self, other: object):
         if isinstance(other, Grid):
@@ -141,15 +141,15 @@ class Grid[T]:
         match key:
             case Point():
                 return self._items[self.index(key)]
-            case int() as index:
-                return self._items[index]
+            case int():
+                return self._items[key]
 
     def __setitem__(self, key: Point | int, value: T):
         match key:
             case Point():
                 self._items[self.index(key)] = value
-            case int() as index:
-                self._items[index] = value
+            case int():
+                self._items[key] = value
 
     def __iter__(self):
         return (
