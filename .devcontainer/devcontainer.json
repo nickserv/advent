@@ -22,5 +22,8 @@
 			]
 		}
 	},
-	"postCreateCommand": "pip install -r requirements.txt"
+	"postCreateCommand": "pip install --user -r requirements.txt",
+	"remoteEnv": {
+		"PATH": "${containerEnv:HOME}/.local/bin:/usr/local/bin:/usr/bin"
+	}
 }
