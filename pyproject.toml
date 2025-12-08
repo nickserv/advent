@@ -11,6 +11,9 @@ disable = [
 max-line-length = 88
 
 [tool.pyright]
+strictListInference = true
+strictDictionaryInference = true
+strictSetInference = true
 deprecateTypingAliases = true
 typeCheckingMode = "strict"
 reportCallInDefaultInitializer = "error"
@@ -18,3 +21,4 @@ reportImplicitStringConcatenation = "error"
 reportImportCycles = "error"
 reportPropertyTypeMismatch = "error"
 reportUnnecessaryTypeIgnoreComment = "error"
+reportUnreachable = "error"
