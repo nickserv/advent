@@ -29,7 +29,7 @@ def read_input(day: int):
     return Path(f"resources/{day}.txt").read_text("utf8")
 
 
-@dataclass(unsafe_hash=True)
+@dataclass(frozen=True, slots=True)
 class Point:
     """A point in a Grid or other 2D collection"""
 
