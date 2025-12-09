@@ -45,6 +45,9 @@ class Point:
     def __add__(self, other: Self):
         return Point(self.x + other.x, self.y + other.y)
 
+    def __sub__(self, other: Self):
+        return Point(self.x - other.x, self.y - other.y)
+
     def __mod__(self, other: Self):
         return Point(self.x % other.x, self.y % other.y)
 
@@ -53,6 +56,9 @@ class Point:
 
     def __rmul__(self, other: int):
         return self * other
+
+    def __iter__(self):
+        return iter((self.x, self.y))
 
     def __str__(self):
         return f"{self.x},{self.y}"
