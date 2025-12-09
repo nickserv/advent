@@ -46,11 +46,6 @@ class TestPoint(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(utils.Point.parse("1,2"), utils.Point(1, 2))
 
-    def test_parse_many(self):
-        self.assertEqual(
-            utils.Point.parse_many("1,2\n3,4"), [utils.Point(1, 2), utils.Point(3, 4)]
-        )
-
     def test_add(self):
         self.assertEqual(utils.Point(1, 2) + utils.Point(3, 4), utils.Point(4, 6))
 

@@ -42,11 +42,6 @@ class Point:
         x, _, y = string.partition(",")
         return Point(int(x), int(y))
 
-    @staticmethod
-    def parse_many(string: str):
-        """Parses a string of "x,y" lines into a list of Points"""
-        return parse_lines(Point.parse, string)
-
     def __add__(self, other: Self):
         return Point(self.x + other.x, self.y + other.y)
 
