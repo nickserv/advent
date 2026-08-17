@@ -3,22 +3,18 @@ import unittest
 from day1 import parse_rotations, zeros
 from utils import clean_string
 
-LIST = parse_rotations(
-    clean_string(
-        """
-        L68
-        L30
-        R48
-        L5
-        R60
-        L55
-        L1
-        L99
-        R14
-        L82
-        """
-    )
-)
+LIST = parse_rotations(clean_string("""
+    L68
+    L30
+    R48
+    L5
+    R60
+    L55
+    L1
+    L99
+    R14
+    L82
+"""))
 
 
 class TestDay1(unittest.TestCase):

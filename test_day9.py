@@ -5,8 +5,7 @@ from utils import Point, clean_string, parse_lines
 
 POINTS = parse_lines(
     Point.parse,
-    clean_string(
-        """
+    clean_string("""
         7,1
         11,1
         11,7
@@ -15,8 +14,7 @@ POINTS = parse_lines(
         2,5
         2,3
         7,3
-        """
-    ),
+    """),
 )
 
 

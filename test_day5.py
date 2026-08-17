@@ -3,23 +3,19 @@ import unittest
 from day5 import count_fresh, parse_ids
 from utils import clean_string
 
-ID_RANGES, IDS = parse_ids(
-    clean_string(
-        """
-        3-5
-        10-14
-        16-20
-        12-18
+ID_RANGES, IDS = parse_ids(clean_string("""
+    3-5
+    10-14
+    16-20
+    12-18
 
-        1
-        5
-        8
-        11
-        17
-        32
-        """
-    )
-)
+    1
+    5
+    8
+    11
+    17
+    32
+"""))
 
 
 class TestDay5(unittest.TestCase):

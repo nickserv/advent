@@ -3,22 +3,18 @@ import unittest
 from day4 import PaperGrid
 from utils import clean_string
 
-GRID = PaperGrid(
-    clean_string(
-        """
-        ..@@.@@@@.
-        @@@.@.@.@@
-        @@@@@.@.@@
-        @.@@@@..@.
-        @@.@@@@.@@
-        .@@@@@@@.@
-        .@.@.@.@@@
-        @.@@@.@@@@
-        .@@@@@@@@.
-        @.@.@@@.@.
-        """
-    )
-)
+GRID = PaperGrid(clean_string("""
+    ..@@.@@@@.
+    @@@.@.@.@@
+    @@@@@.@.@@
+    @.@@@@..@.
+    @@.@@@@.@@
+    .@@@@@@@.@
+    .@.@.@.@@@
+    @.@@@.@@@@
+    .@@@@@@@@.
+    @.@.@@@.@.
+"""))
 
 
 class TestPaperGrid(unittest.TestCase):

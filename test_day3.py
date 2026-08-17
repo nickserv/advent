@@ -3,16 +3,12 @@ import unittest
 from day3 import joltage, parse_banks, total_joltage
 from utils import clean_string
 
-BANKS = parse_banks(
-    clean_string(
-        """
-        987654321111111
-        811111111111119
-        234234234234278
-        818181911112111
-        """
-    )
-)
+BANKS = parse_banks(clean_string("""
+    987654321111111
+    811111111111119
+    234234234234278
+    818181911112111
+"""))
 
 
 class TestDay3(unittest.TestCase):
