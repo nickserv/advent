@@ -1,4 +1,4 @@
 {
-	"python.testing.unittestEnabled": true,
-	"python.testing.pytestEnabled": false
+	"python.testing.unittestEnabled": true, // Use unittest...
+	"python.testing.pytestEnabled": false // not Pytest
 }
