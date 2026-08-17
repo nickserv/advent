@@ -2,8 +2,7 @@ import unittest
 
 from day5 import lookup, lookup_many, parse
 
-seeds, maps = parse(
-    """seeds: 79 14 55 13
+seeds, maps = parse("""seeds: 79 14 55 13
 
 seed-to-soil map:
 50 98 2
@@ -35,8 +34,7 @@ temperature-to-humidity map:
 
 humidity-to-location map:
 60 56 37
-56 93 4"""
-)
+56 93 4""")
 
 
 class Test(unittest.TestCase):

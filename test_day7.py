@@ -2,16 +2,13 @@ import unittest
 
 from day7 import Hand, HandType
 
-hands = [
-    Hand.parse(line)
-    for line in """
+hands = [Hand.parse(line) for line in """
 32T3K 765
 T55J5 684
 KK677 28
 KTJJT 220
 QQQJA 483
-""".strip().splitlines()
-]
+""".strip().splitlines()]
 
 
 class HandTest(unittest.TestCase):

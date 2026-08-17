@@ -21,14 +21,12 @@ class Test(unittest.TestCase):
 
     def test_calibration_value_sum(self):
         self.assertEqual(
-            calibration_value_sum(
-                """
+            calibration_value_sum("""
 1abc2
 pqr3stu8vwx
 a1b2c3d4e5f
 treb7uchet
-                """.strip().splitlines()
-            ),
+            """.strip().splitlines()),
             142,
         )
 

@@ -21,8 +21,7 @@ def shift(rocks: list[bool], shift: int):
     return rocks[shift:] + rocks[:shift]
 
 
-INPUT = parse_platform(
-    """
+INPUT = parse_platform("""
 O....#....
 O.OO#....#
 .....##...
@@ -33,8 +32,7 @@ O.#..O.#.#
 .......O..
 #....###..
 #OO..#....
-    """.strip()
-)
+""".strip())
 
 print(INPUT)
 # print(sorted(INPUT[0], reverse=True))

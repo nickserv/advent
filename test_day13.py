@@ -5,8 +5,7 @@ from day13 import parse_pattern, reflect
 
 class Test(unittest.TestCase):
     def test_reflect(self):
-        pattern = parse_pattern(
-            """
+        pattern = parse_pattern("""
 #.##..##.
 ..#.##.#.
 ##......#
@@ -14,12 +13,10 @@ class Test(unittest.TestCase):
 ..#.##.#.
 ..##..##.
 #.#.##.#.
-            """.strip()
-        )
+        """.strip())
         self.assertEqual(reflect(pattern), 5)
 
-        pattern = parse_pattern(
-            """
+        pattern = parse_pattern("""
 #...##..#
 #....#..#
 ..##..###
@@ -27,6 +24,5 @@ class Test(unittest.TestCase):
 #####.##.
 ..##..###
 #....#..#
-            """.strip()
-        )
+        """.strip())
         self.assertEqual(reflect(pattern), 400)
