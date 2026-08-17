@@ -115,14 +115,14 @@ class Grid[T]:
         match key:
             case Point():
                 return self._items[self.index(key)]
-            case int(index):
+            case int() as index:
                 return self._items[index]
 
     def __setitem__(self, key: Point | int, value: T):
         match key:
             case Point():
                 self._items[self.index(key)] = value
-            case int(index):
+            case int() as index:
                 self._items[index] = value
 
     def __iter__(self):
@@ -160,9 +160,9 @@ def digits(string: str):
 def get_input(day_or_string: int | str):
     """Read an input from a file or inline string without extra whitespace"""
     match day_or_string:
-        case int(day):
+        case int() as day:
             return Path(f"resources/{day}.txt").read_text("utf8")
-        case str(string):
+        case str() as string:
             return dedent(string).strip()
 
 
