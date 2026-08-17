@@ -7,11 +7,6 @@
 	},
 	"customizations": {
 		"vscode": {
-			"settings": {
-				"[python]": {
-					"editor.defaultFormatter": "ms-python.black-formatter"
-				}
-			},
 			"extensions": [
 				"github.vscode-github-actions",
 				"ms-python.black-formatter",

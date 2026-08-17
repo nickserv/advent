@@ -1,4 +1,7 @@
 {
 	"python.testing.unittestEnabled": true, // Use unittest...
-	"python.testing.pytestEnabled": false // not Pytest
+	"python.testing.pytestEnabled": false, // not Pytest
+	"[python]": {
+		"editor.defaultFormatter": "ms-python.black-formatter"
+	}
 }
