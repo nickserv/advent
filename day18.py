@@ -10,7 +10,7 @@ class Space(Grid[bool]):
         size: int,
         points: Iterable[Point] = iter(
             ()
-        ),  # type:ignore[reportCallInDefaultInitializer]
+        ),  # type: ignore[reportCallInDefaultInitializer]
     ):
         super().__init__([False] * size**2)
         for point in points:

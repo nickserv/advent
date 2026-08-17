@@ -4,22 +4,18 @@ from day4 import Point, WordSearch
 from utils import get_input
 
 # cspell:disable
-WORD_SEARCH = WordSearch(
-    get_input(
-        """
-        MMMSXXMASM
-        MSAMXMSMSA
-        AMXSXMAAMM
-        MSAMASMSMX
-        XMASAMXAMM
-        XXAMMXXAMA
-        SMSMSASXSS
-        SAXAMASAAA
-        MAMMMXMMMM
-        MXMXAXMASX
-        """
-    )
-)
+WORD_SEARCH = WordSearch(get_input("""
+    MMMSXXMASM
+    MSAMXMSMSA
+    AMXSXMAAMM
+    MSAMASMSMX
+    XMASAMXAMM
+    XXAMMXXAMA
+    SMSMSASXSS
+    SAXAMASAAA
+    MAMMMXMMMM
+    MXMXAXMASX
+"""))
 # cspell:enable
 
 
